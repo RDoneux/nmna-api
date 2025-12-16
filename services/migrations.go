@@ -1,19 +1,32 @@
 package services
 
 import (
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/golang-migrate/migrate/v4"
-	"github.com/rdoneux/strfndr-api/config"
 	_ "github.com/golang-migrate/migrate/v4/database/mysql"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
-	_ "github.com/go-sql-driver/mysql"
+	"github.com/rdoneux/strfndr-api/config"
 )
 
+type MigrationResult struct {
+	Success bool
+	Message string
+}
+
 func RunMigrations() error {
-	return runMigrations("up")
+	migrationErr := runMigrations("up")
+	if migrationErr == migrate.ErrNoChange {
+		return nil
+	}
+	return migrationErr
 }
 
 func RollbackMigrations() error {
-	return runMigrations("down")
+	migrationErr := runMigrations("down")
+	if migrationErr == migrate.ErrNoChange {
+		return nil
+	}
+	return migrationErr
 }
 
 func runMigrations(direction string) error {
@@ -25,7 +38,7 @@ func runMigrations(direction string) error {
 
 	migration, err := migrate.New(
 		"file://migrations",
-		"mysql://" + connectionString,
+		"mysql://"+connectionString,
 	)
 	if err != nil {
 		return err
