@@ -1,4 +1,7 @@
 ### SQL
+
+#### Select character information and skills
+
 ```sql
 SELECT
     ch.id as character_id,
@@ -30,4 +33,53 @@ FROM
     LEFT JOIN character_skills cs ON ch.id = cs.character_id
     LEFT JOIN skill_proficiencies sp ON cs.proficiency_level_id = sp.id
 GROUP BY ch.id, ch.character_name, ch.player_name, ch.experience, ch.level, cl.name;
+```
+
+#### Select Saving Throw Character Information
+
+```sql
+SELECT
+	c.character_name,
+	c.player_name,
+	st.saving_throw_name,
+	st.modifying_attribute,
+	sp.level,
+	sp.modifier AS proficiency_modifier,
+	CASE st.modifying_attribute
+		WHEN 'Constitution' THEN c.constitution
+		WHEN 'Dexterity' THEN c.dexterity
+		WHEN 'Wisdom' THEN c.wisdom
+		ELSE NULL
+	END AS attribute_modifier
+FROM
+	saving_throws st
+	LEFT JOIN skill_proficiencies sp ON sp.id = st.proficiency_level_id
+	LEFT JOIN characters c ON c.id = st.character_id
+WHERE character_id = 'a1b2c3d4-e5f6-7890-abcd-ef0123456789';
+```
+
+### Select Character Skills Information
+
+```sql
+SELECT
+	cs.skill_name,
+	sp.level,
+	sp.modifier,
+	cs.modifying_attribute,
+	cs.skill_rank,
+		CASE cs.modifying_attribute
+		WHEN 'Constitution' THEN c.constitution
+		WHEN 'Dexterity' THEN c.dexterity
+		WHEN 'Wisdom' THEN c.wisdom
+		WHEN 'Strength' THEN c.strength
+		WHEN 'Intelligence' THEN c.intelligence
+		WHEN 'Charisma' THEN c.charisma
+		ELSE NULL
+	END AS attribute_modifier
+FROM
+	character_skills cs
+	LEFT JOIN skill_proficiencies sp ON cs.proficiency_level_id = sp.id
+	LEFT JOIN characters c ON c.id = cs.character_id
+WHERE
+	cs.character_id = 'a1b2c3d4-e5f6-7890-abcd-ef0123456789';
 ```

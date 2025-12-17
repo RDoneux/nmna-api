@@ -19,6 +19,10 @@ CREATE TABLE IF NOT EXISTS `characters` (
     wisdom INT DEFAULT 10,
     charisma INT DEFAULT 10,
 
+    hit_point_maximum INT DEFAULT 10,
+    hit_point_current INT DEFAULT 10,
+    wounded INT DEFAULT 0,
+
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 

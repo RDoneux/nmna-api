@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS character_skills (
     id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
     character_id CHAR(36) NOT NULL,
     skill_name VARCHAR(100) NOT NULL,
+    skill_rank INT DEFAULT 0,
     proficiency_level_id CHAR(36) NOT NULL DEFAULT 'fff2c643-1867-4fc6-908c-9609fd6ce594',
     modifying_attribute VARCHAR(50),
     
