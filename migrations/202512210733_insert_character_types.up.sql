@@ -192,4 +192,127 @@ VALUES
     '15c7f989-3c39-4016-92f2-99e420ca1df6',
     'b1f5d6e2-3c4a-4f7a-9f4b-2d5e8c9a1b2c',
     '28bf7d87-d5d4-4484-a359-bc1f31eadc94'
-); -- Breaking Things
+);
+-- Breaking Things
+
+INSERT INTO
+    character_types_equipment (
+        id,
+        type_id,
+        item_id,
+        description
+    )
+VALUES
+    -- GLAIVE
+    (
+        '97c3f28a-a8f0-4c6e-9cdb-f8df3f81acd2',
+        '8c606521-ce04-4725-ade4-e342768b266f',
+        '4cf2c8e4-7b18-4ad5-87dc-f2cddf6a36b7',
+        'Medium Weapon'
+    ),
+    (
+        '3476b5d5-dfdd-4ed2-931c-b7d5ced52c9b',
+        '8c606521-ce04-4725-ade4-e342768b266f',
+        'b1d4836d-7fd8-4f37-9f09-51a4ac769f11',
+        'Heavy Weapon'
+    ),
+    (
+        '3abec2b1-347e-41c9-9aa7-b70463b62e46',
+        '8c606521-ce04-4725-ade4-e342768b266f',
+        'b0f1f29d-312a-41e0-8450-60e6f8df1e1b',
+        'Medium Armor'
+    ),
+    (
+        'c56dfe2f-52fe-4af0-9b16-3f41b2533cff',
+        '8c606521-ce04-4725-ade4-e342768b266f',
+        'fd123b5a-8ac3-4ff0-b9c2-1a56108f0de7',
+        'Explorer’s Pack'
+    ),
+    (
+        'f1aad607-536f-4e3c-bddb-b9b893abac68',
+        '8c606521-ce04-4725-ade4-e342768b266f',
+        'a4c2e619-9b2b-47b3-89ef-4de0fd5ad4ab',
+        'Cypher: Detonation (Fire)'
+    ),
+    (
+        'ad0ef7fd-e8bf-40cf-b0be-3dd8e43c6735',
+        '8c606521-ce04-4725-ade4-e342768b266f',
+        'dfde3b7e-8d61-4f7b-b911-bfd60e0a1d3a',
+        'Cypher: Detonation (Gravity)'
+    ),
+    (
+        '769caf85-af05-455f-a90b-d76614bdd768',
+        '8c606521-ce04-4725-ade4-e342768b266f',
+        'c7e6f3a1-f1f0-4ff0-b046-3f592e6463a2',
+        'Oddity: Glowing Marble'
+    ),
+
+-- NANO
+(
+    '6bff7399-9bf3-44b2-833b-d4d4f187b029',
+    'b1f5d6e2-3c4a-4f7a-9f4b-2d5e8c9a1b2c',
+    '2c4e8bd6-d3a9-43a5-bdd7-f7c3d3b78f85',
+    'Traveler’s Clothes'
+),
+(
+    'c8f5d457-e65b-4fce-8ae8-39a94ae35195',
+    'b1f5d6e2-3c4a-4f7a-9f4b-2d5e8c9a1b2c',
+    '8a9e2c35-5f19-4a90-81d7-4a78e06b5b1a',
+    'Light Weapon'
+),
+(
+    'a1555fc4-fefa-44d4-8300-2e98f61d756e',
+    'b1f5d6e2-3c4a-4f7a-9f4b-2d5e8c9a1b2c',
+    'a6c7f9f9-3c1c-4e2f-9a46-8b1e8e3e0ac9',
+    'Cypher: Mental Enhancement'
+),
+(
+    '1b6e35f1-eca2-416a-8291-7f8744a74465',
+    'b1f5d6e2-3c4a-4f7a-9f4b-2d5e8c9a1b2c',
+    '6b1d4144-b816-4b32-9c56-4a6db29048d1',
+    'Cypher: Healing Injector'
+),
+(
+    'ae265294-178f-47c3-bd88-8389a1bb874c',
+    'b1f5d6e2-3c4a-4f7a-9f4b-2d5e8c9a1b2c',
+    'bfeab733-2e58-47ab-a0b2-7d0adfe6a751',
+    'Oddity: Singing Coin'
+),
+
+-- JACK
+(
+    '46d94cb1-279d-4f8d-a8d6-091d967525e5',
+    'd3f9e8b7-5a6c-4d2e-9f1b-3c4d5e6f7a8b',
+    '8a9e2c35-5f19-4a90-81d7-4a78e06b5b1a',
+    'Light Weapon'
+),
+(
+    '598bf64a-c971-4e5b-95f0-2bc29ad2b89d',
+    'd3f9e8b7-5a6c-4d2e-9f1b-3c4d5e6f7a8b',
+    'c9f8c0b1-3e3f-4a92-86da-6e2077f2e83b',
+    'Light Armor'
+),
+(
+    'b1cbf1cd-dce0-4e90-82e5-85353ea0373b',
+    'd3f9e8b7-5a6c-4d2e-9f1b-3c4d5e6f7a8b',
+    'fd123b5a-8ac3-4ff0-b9c2-1a56108f0de7',
+    'Explorer’s Pack'
+),
+(
+    '37d4b93e-fd8a-476b-99a5-fbb6d678bd18',
+    'd3f9e8b7-5a6c-4d2e-9f1b-3c4d5e6f7a8b',
+    'f57b86cb-0f12-48a8-91bb-58f2f75ef04f',
+    'Cypher: Force Field Projector'
+),
+(
+    'eeee8a95-14c1-4921-8a24-174f3f9e81b2',
+    'd3f9e8b7-5a6c-4d2e-9f1b-3c4d5e6f7a8b',
+    'a4c2e619-9b2b-47b3-89ef-4de0fd5ad4ab',
+    'Cypher: Detonation (Fire)'
+),
+(
+    'ac7ea5d3-243c-47ae-aed7-9070473ec90d',
+    'd3f9e8b7-5a6c-4d2e-9f1b-3c4d5e6f7a8b',
+    'a9f2c14b-5946-4f59-9ed2-6d32cf8dcb91',
+    'Oddity: Color-Shifting Cube'
+);
