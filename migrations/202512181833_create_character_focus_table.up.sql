@@ -33,12 +33,3 @@ CREATE TABLE IF NOT EXISTS character_focus_inabilities (
     FOREIGN KEY (focus_id) REFERENCES character_focus (id) ON DELETE CASCADE,
     FOREIGN KEY (skill_id) REFERENCES skills (id) ON DELETE CASCADE
 );
-
--- can't do until we have an equipment table
-CREATE TABLE character_focus_equipment (
-    id CHAR(36) PRIMARY KEY DEFAULT(UUID()),
-    focus_id CHAR(36) NOT NULL,
-    item_name VARCHAR(100),
-    description TEXT,
-    FOREIGN KEY (focus_id) REFERENCES character_focus (id)
-);

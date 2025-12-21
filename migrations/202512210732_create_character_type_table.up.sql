@@ -33,3 +33,11 @@ CREATE TABLE IF NOT EXISTS character_types_inabilities (
     FOREIGN KEY (type_id) REFERENCES character_types (id) ON DELETE CASCADE,
     FOREIGN KEY (skill_id) REFERENCES skills (id) ON DELETE CASCADE
 );
+
+CREATE TABLE character_types_equipment (
+    id CHAR(36) PRIMARY KEY DEFAULT(UUID()),
+    type_id CHAR(36) NOT NULL,
+    item_id VARCHAR(36),
+    description TEXT,
+    FOREIGN KEY (type_id) REFERENCES character_types (id)
+);
