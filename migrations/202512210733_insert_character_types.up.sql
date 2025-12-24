@@ -28,58 +28,68 @@ INSERT INTO
     character_types_pool_modifiers (
         type_id,
         pool_type,
-        modifier_value
+        modifier_value,
+        edge_value
     )
 VALUES
     -- Glaive
     (
         (SELECT id FROM character_types WHERE name = 'Glaive'),
         'Might',
-        11
+        11,
+        1
     ),
     (
         (SELECT id FROM character_types WHERE name = 'Glaive'),
         'Speed',
-        10
+        10,
+        1
     ),
     (
         (SELECT id FROM character_types WHERE name = 'Glaive'),
         'Intellect',
-        7
+        7,
+        0
     ),
 
 -- Nano
 (
     (SELECT id FROM character_types WHERE name = 'Nano'),
     'Might',
-    7
+    7,
+    0
 ),
 (
     (SELECT id FROM character_types WHERE name = 'Nano'),
     'Speed',
-    9
+    9,
+    0
 ),
 (
     (SELECT id FROM character_types WHERE name = 'Nano'),
     'Intellect',
-    12
+    12,
+    1
 ),
 
 -- Jack
 (
     (SELECT id FROM character_types WHERE name = 'Jack'),
     'Might',
-    10
+    10,
+    0
 ),
 (
     (SELECT id FROM character_types WHERE name = 'Jack'),
     'Speed',
-    10
+    10,
+    1
 ),
 (
     (SELECT id FROM character_types WHERE name = 'Jack'),
     'Intellect',
-    10
+    10,
+    0
 );
 
 INSERT INTO

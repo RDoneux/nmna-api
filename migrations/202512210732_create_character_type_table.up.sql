@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS character_types_pool_modifiers (
         pool_type IN ('Might', 'Speed', 'Intellect')
     ),
     modifier_value INT NOT NULL,
+    edge_value INT NOT NULL DEFAULT 0,
     FOREIGN KEY (type_id) REFERENCES character_types (id) ON DELETE CASCADE,
     INDEX idx_character_type_pool (type_id)
 );
