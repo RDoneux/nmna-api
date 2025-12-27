@@ -1,0 +1,1 @@
+DELETE FROM special_abilities WHERE name = "Bears a Halo of Fire"

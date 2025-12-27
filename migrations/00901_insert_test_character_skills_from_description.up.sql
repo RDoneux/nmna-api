@@ -1,3 +1,4 @@
+
 INSERT IGNORE INTO character_skills (character_id, skill_id, training_level, source)
 SELECT DISTINCT * FROM (
     -- Descriptor skills
@@ -36,6 +37,7 @@ WHERE
 UNION
 
 -- Focus skills
+
 SELECT
     character_id,
     skill_id,
@@ -43,22 +45,34 @@ SELECT
     'Focus' AS source
 FROM (
     SELECT
-        c.id AS character_id,
-        s.id AS skill_id,
-        cft.training_level AS training_level,
-        cftc.tier AS tier,
-        ROW_NUMBER() OVER (
-            PARTITION BY s.name, c.name
-            ORDER BY cftc.tier DESC
-        ) AS rn
-    FROM characters c
-    JOIN character_focus cf ON c.focus_id = cf.id
-    JOIN character_focus_trainings cft ON cf.id = cft.focus_id
-    JOIN character_focus_tier_classifications cftc
-        ON cft.classification_id = cftc.id
-        AND cftc.tier <= c.tier
-    JOIN skills s ON cft.skill_id = s.id
-    WHERE c.id = (SELECT id FROM characters WHERE name = 'Test Character')
+	c.id AS character_id,
+	s.id AS skill_id,
+	cft.training_level AS training_level,
+	ca.tier AS tier,
+	ROW_NUMBER() OVER (
+		PARTITION BY
+			s.name,
+			c.name
+		ORDER BY
+			ca.tier DESC
+	) AS rn
+FROM
+	characters c
+	JOIN character_focus cf ON c.focus_id = cf.id
+	JOIN character_focus_trainings cft ON cf.id = cft.focus_id
+	JOIN character_focus_tier_classifications cftc ON cf.id = cftc.focus_id
+	JOIN special_abilities ca ON ca.id = cftc.special_ability_id
+	AND ca.tier <= c.tier
+	JOIN skills s ON cft.skill_id = s.id
+WHERE
+	c.id = (
+		SELECT
+			id
+		FROM
+			characters
+		WHERE
+			name = 'Test Character'
+	)
 ) ranked
 WHERE rn = 1
 ) AS unified;
