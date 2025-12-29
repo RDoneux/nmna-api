@@ -21,6 +21,9 @@ CREATE TABLE character_items (
     id VARCHAR(36) PRIMARY KEY DEFAULT (UUID()),
     character_id VARCHAR(36),
     item_id VARCHAR(36),
+    source ENUM('TYPE', 'DESCRIPTOR', 'FOCUS', 'CUSTOM') NOT NULL,
+    is_equipped BOOLEAN DEFAULT FALSE,
+    quantity INT DEFAULT 1,
 
     FOREIGN KEY (character_id) REFERENCES characters(id) ON DELETE CASCADE,
     FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
