@@ -1,7 +1,6 @@
 CREATE TABLE cyphers (
     item_id VARCHAR(36) PRIMARY KEY,
     level_descriptor VARCHAR(100),
-    level SMALLINT DEFAULT 1,
     cypher_type ENUM('ANOETIC', 'OCCULTIC') DEFAULT 'ANOETIC',
     effect TEXT,
 

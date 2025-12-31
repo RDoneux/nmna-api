@@ -1,4 +1,6 @@
 CREATE TABLE armour (
     item_id VARCHAR(36) PRIMARY KEY,
+    weight_type ENUM('LIGHT', 'SPECIAL_LIGHT', 'MEDIUM', 'SPECIAL_MEDIUM', 'HEAVY') NOT NULL,
+
     FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
 )

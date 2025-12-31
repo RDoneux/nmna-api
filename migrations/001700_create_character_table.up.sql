@@ -24,6 +24,7 @@ CREATE TABLE character_items (
     source ENUM('TYPE', 'DESCRIPTOR', 'FOCUS', 'CUSTOM') NOT NULL,
     is_equipped BOOLEAN DEFAULT FALSE,
     quantity INT DEFAULT 1,
+    level SMALLINT DEFAULT 1,
 
     FOREIGN KEY (character_id) REFERENCES characters(id) ON DELETE CASCADE,
     FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
