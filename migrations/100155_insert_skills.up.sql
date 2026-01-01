@@ -116,4 +116,28 @@ INSERT INTO skills (
     0,
     '1 Intellect Point',
     'ESOTERY'
+),
+(
+    'Physical Skills',
+    'MIGHT',
+    'You are particularly skilled at all actions which involve physical prowess, such as climbing, jumping, or swimming.',
+    0,
+    NULL,
+    'PASSIVE'
+),
+(
+    'Animal Handling',
+    'MIGHT',
+    'You''re skilled in all tasks involving training, riding, or placating natural animals.',
+    0,
+    NULL,
+    'PASSIVE'
+),
+(
+    'Botany',
+    'INTELLECT',
+    'You have extensive knowledge of plants, fungi, and other flora, including their uses, habitats, and characteristics.',
+    0,
+    NULL,
+    'PASSIVE'
 );

@@ -32,6 +32,11 @@ INSERT INTO character_descriptors (
         'Mystical/Mechanical',
         'You have a special talent that can be viewed in two ways. You might think of yourself as "mystical" and thus attuned with the mysterious and the paranormal, or you might think of yourself as "mechanical", and thus adept with devices and machines. In either case, your true talents lie with the numenera. You likely have experience with ancient lore, and you can sense and wield the numenera - though whether that means "magic" or "technology" is up to you (and probably up to those around you as well). Mystical characters often wear jewelry, such as a ring or an amulet, or have tattoos or other marks that show their interests. Mechanical charactes tend to carry a lot of tools and treat them almost like talismans.',
         'Core Rulebook 2013'
+    ),
+    (
+        'Rugged',
+        'You''re a nature lover accustomed to living rough, pitting your iwts against the elements. Most likely, you''re a skilled hunter, gatherer, or naturalist. Years of living in the wild have left their mark with a worn countenance, wild hair, or scars. Your clothing is probably much less refined than the garments worn by city dwellers.',
+        'Core Rulebook 2013'
     );
 
 INSERT INTO character_descriptor_pool_modifiers (
@@ -153,6 +158,21 @@ INSERT INTO character_descriptor_skills (
         (SELECT id FROM character_descriptors WHERE name = 'Mystical/Mechanical'),
         (SELECT id FROM skills WHERE name = 'Hedge Magic'),
         'TRAINED'
+    ),
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Rugged'),
+        (SELECT id FROM skills WHERE name = 'Physical Skills'),
+        'TRAINED'
+    ),
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Rugged'),
+        (SELECT id FROM skills WHERE name = 'Animal Handling'),
+        'TRAINED'
+    ),
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Rugged'),
+        (SELECT id FROM skills WHERE name = 'Botany'),
+        'TRAINED'
     );
 
 INSERT INTO character_descriptor_inabilities (
@@ -174,4 +194,17 @@ INSERT INTO character_descriptor_inabilities (
     (
         (SELECT id FROM character_descriptors WHERE name = 'Mystical/Mechanical'),
         (SELECT id FROM inabilities WHERE name = 'Social Interaction')
+    ),
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Rugged'),
+        (SELECT id FROM inabilities WHERE name = 'Social Interaction')
+    );
+
+INSERT INTO character_descriptor_items (
+    descriptor_id,
+    item_id
+) VALUES
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Rugged'),
+        (SELECT id FROM items WHERE name = 'Explorer''s pack')
     );
