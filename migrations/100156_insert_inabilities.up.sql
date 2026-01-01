@@ -12,4 +12,8 @@ INSERT INTO inabilities (
 (
     'Social Interaction',
     'You have few social graces. The difficulty of any task involving charm, persuasion, or etiquette is increased by one step.'
+),
+(
+    'Movement Tasks',
+    'The difficulty of all movement-related tasks is one step higher for you.'
 );

@@ -140,4 +140,60 @@ INSERT INTO skills (
     0,
     NULL,
     'PASSIVE'
-);
+),
+(
+    'Stealth',
+    'SPEED',
+    'You''re skilled in all stealthy tasks.',
+    0,
+    NULL,
+    'PASSIVE'
+),
+(
+    'Thievery',
+    'SPEED',
+    'You are skilled in all interactions involving lies or trickery.',
+    0,
+    NULL,
+    'PASSIVE'
+),
+(
+    'Illusions and Trickery',
+    'SPEED',
+    'You are skilled in all esoteries or speical abilities involving illusions or trickery.',
+    0,
+    NULL,
+    'PASSIVE'
+),
+(
+    'Breaking Things',
+    'MIGHT',
+    'You are skilled in all actions involving breaking inanimate objects.',
+    0,
+    NULL,
+    'PASSIVE'
+),
+(
+    'Jumping',
+    'SPEED',
+    'You are skilled in all jumping-related tasks.',
+    0,
+    NULL,
+    'PASSIVE'
+),
+(
+    'Mental Resistance',
+    'INTELLECT',
+    'You are skilled in resisting mental effects',
+    0,
+    NULL,
+    'PASSIVE'
+),
+(
+    'Focus',
+    'INTELLECT',
+    'You are skilled in tasks requiring incredible focus or concentration.',
+    0,
+    NULL,
+    'PASSIVE'
+)

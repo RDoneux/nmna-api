@@ -37,6 +37,21 @@ INSERT INTO character_descriptors (
         'Rugged',
         'You''re a nature lover accustomed to living rough, pitting your iwts against the elements. Most likely, you''re a skilled hunter, gatherer, or naturalist. Years of living in the wild have left their mark with a worn countenance, wild hair, or scars. Your clothing is probably much less refined than the garments worn by city dwellers.',
         'Core Rulebook 2013'
+    ),
+    (
+        'Stealthy',
+        'You''re sneaky, slippery, and fast. These talents help you hid, move quietly, and pull of tricks that require sleight of hand. Most likely, you''re wiry and small. However you''re not much of a sprinter - you''re more dexterous than fleet of foot.',
+        'Core Rulebook 2013'
+    ),
+    (
+        'Strong',
+        'You''re extremely strong and physically powerful, and you use these qualities well, whether through violence or feats of prowess. You likely have a brwany build and impressive muscles.',
+        'Core Rulebook 2013'
+    ),
+    (
+        'Strong Willed',
+        'You''re touch-minded, willful, and independent. No one can talk you into anything or change your mind when you don''t want it changed. This quality doesn''t necessarily make you smart, but it does make you a bastion of willpower and resolve. You likely dress and act with unique style and flair, not caring what others think.',
+        'Core Rulebook 2013'
     );
 
 INSERT INTO character_descriptor_pool_modifiers (
@@ -91,6 +106,24 @@ INSERT INTO character_descriptor_pool_modifiers (
         (SELECT id FROM character_descriptors WHERE name = 'Mystical/Mechanical'),
         'INTELLECT',
         2,
+        0
+    ),
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Stealthy'),
+        'SPEED',
+        2,
+        0
+    ),
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Strong'),
+        'MIGHT',
+        4,
+        0
+    ),
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Strong Willed'),
+        'INTELLECT',
+        4,
         0
     );
 
@@ -173,6 +206,41 @@ INSERT INTO character_descriptor_skills (
         (SELECT id FROM character_descriptors WHERE name = 'Rugged'),
         (SELECT id FROM skills WHERE name = 'Botany'),
         'TRAINED'
+    ),
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Stealthy'),
+        (SELECT id FROM skills WHERE name = 'Stealth'),
+        'TRAINED'
+    ),
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Stealthy'),
+        (SELECT id FROM skills WHERE name = 'Thievery'),
+        'TRAINED'
+    ),
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Stealthy'),
+        (SELECT id FROM skills WHERE name = 'Illusions and Trickery'),
+        'TRAINED'
+    ),
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Strong'),
+        (SELECT id FROM skills WHERE name = 'Breaking Things'),
+        'TRAINED'
+    ),
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Strong'),
+        (SELECT id FROM skills WHERE name = 'Jumping'),
+        'TRAINED'
+    ),
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Strong Willed'),
+        (SELECT id FROM skills WHERE name = 'Mental Resistance'),
+        'TRAINED'
+    ),
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Strong Willed'),
+        (SELECT id FROM skills WHERE name = 'Focus'),
+        'TRAINED'
     );
 
 INSERT INTO character_descriptor_inabilities (
@@ -198,6 +266,14 @@ INSERT INTO character_descriptor_inabilities (
     (
         (SELECT id FROM character_descriptors WHERE name = 'Rugged'),
         (SELECT id FROM inabilities WHERE name = 'Social Interaction')
+    ),
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Stealthy'),
+        (SELECT id FROM inabilities WHERE name = 'Movement Tasks')
+    ),
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Strong Willed'),
+        (SELECT id FROM inabilities WHERE name = 'Retaining Facts')
     );
 
 INSERT INTO character_descriptor_items (
