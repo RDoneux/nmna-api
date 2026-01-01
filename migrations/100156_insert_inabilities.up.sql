@@ -8,4 +8,8 @@ INSERT INTO inabilities (
 (
     'Retaining Facts',
     'You were never good at studying or retaining facts. The difficulty of any task involving lore, knowledge, or understanding is increased by one step.'
+),
+(
+    'Social Interaction',
+    'You have few social graces. The difficulty of any task involving charm, persuasion, or etiquette is increased by one step.'
 );

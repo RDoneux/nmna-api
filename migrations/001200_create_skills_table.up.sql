@@ -3,5 +3,8 @@ CREATE TABLE skills (
     name VARCHAR(100) NOT NULL,
     category ENUM('MIGHT', 'SPEED', 'INTELLECT', 'CUSTOM') NOT NULL,
     description TEXT,
-    attack_modifier SMALLINT DEFAULT 0
+    attack_modifier SMALLINT DEFAULT 0,
+
+    cost VARCHAR(100),
+    type ENUM('ACTION', 'ESOTERY', 'PASSIVE') DEFAULT 'PASSIVE'
 )

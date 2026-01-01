@@ -22,6 +22,16 @@ INSERT INTO character_descriptors (
         'Intelligent',
         'You''re quite smart. Your memory is sharp, and you easily grasp concepts that others might struggle with. This aptitude does''t necessarily mean that you''ve had years of formal education, but you have learned a great deal in your life, primarily because you pick things up quickly and retrain so much.',
         'Core Rulebook 2013'
+    ),
+    (
+        'Learned',
+        'You have studied, either on your own or with an instructor. You know many things and are an expert on a few topics, such as history, biology geography, the numenera, nature, or any other area of study. Learned characters typically carry a few books around with them and spend their spare time reading.',
+        'Core Rulebook 2013'
+    ),
+    (
+        'Mystical/Mechanical',
+        'You have a special talent that can be viewed in two ways. You might think of yourself as "mystical" and thus attuned with the mysterious and the paranormal, or you might think of yourself as "mechanical", and thus adept with devices and machines. In either case, your true talents lie with the numenera. You likely have experience with ancient lore, and you can sense and wield the numenera - though whether that means "magic" or "technology" is up to you (and probably up to those around you as well). Mystical characters often wear jewelry, such as a ring or an amulet, or have tattoos or other marks that show their interests. Mechanical charactes tend to carry a lot of tools and treat them almost like talismans.',
+        'Core Rulebook 2013'
     );
 
 INSERT INTO character_descriptor_pool_modifiers (
@@ -62,6 +72,18 @@ INSERT INTO character_descriptor_pool_modifiers (
     ),
     (
         (SELECT id FROM character_descriptors WHERE name = 'Intelligent'),
+        'INTELLECT',
+        2,
+        0
+    ),
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Learned'),
+        'INTELLECT',
+        2,
+        0
+    ),
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Mystical/Mechanical'),
         'INTELLECT',
         2,
         0
@@ -111,6 +133,26 @@ INSERT INTO character_descriptor_skills (
         (SELECT id FROM character_descriptors WHERE name = 'Intelligent'),
         (SELECT id FROM skills WHERE name = 'Memory'),
         'TRAINED'
+    ),
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Learned'),
+        (SELECT id FROM skills WHERE name = 'Knowledge'),
+        'TRAINED'
+    ),
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Mystical/Mechanical'),
+        (SELECT id FROM skills WHERE name = 'Understanding Numenera'),
+        'TRAINED'
+    ),
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Mystical/Mechanical'),
+        (SELECT id FROM skills WHERE name = 'Sense Magic'),
+        'TRAINED'
+    ),
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Mystical/Mechanical'),
+        (SELECT id FROM skills WHERE name = 'Hedge Magic'),
+        'TRAINED'
     );
 
 INSERT INTO character_descriptor_inabilities (
@@ -128,4 +170,8 @@ INSERT INTO character_descriptor_inabilities (
     (
         (SELECT id FROM character_descriptors WHERE name = 'Clever'),
         (SELECT id FROM inabilities WHERE name = 'Retaining Facts')
+    ),
+    (
+        (SELECT id FROM character_descriptors WHERE name = 'Mystical/Mechanical'),
+        (SELECT id FROM inabilities WHERE name = 'Social Interaction')
     );
