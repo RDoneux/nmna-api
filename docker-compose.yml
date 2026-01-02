@@ -1,15 +1,15 @@
-name: strfndr-api
+name: nmna-api
 
 services:
   db:
     image: mysql:latest
-    container_name: starfinder-mysql
+    container_name: nmna-mysql
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: starfinder
-      MYSQL_USER: starfinder_user
-      MYSQL_PASSWORD: starfinder_password
+      MYSQL_DATABASE: nmna
+      MYSQL_USER: nmna_user
+      MYSQL_PASSWORD: nmna_password
     ports:
       - "3306:3306"
     volumes:

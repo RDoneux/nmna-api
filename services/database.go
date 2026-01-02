@@ -3,7 +3,7 @@ package services
 import (
 	"database/sql"
 	"fmt"
-	"github.com/rdoneux/strfndr-api/config"
+	"github.com/rdoneux/nmna-api/config"
 	_ "github.com/go-sql-driver/mysql"
 )
 

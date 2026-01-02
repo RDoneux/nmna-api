@@ -1,4 +1,4 @@
-module github.com/rdoneux/strfndr-api
+module github.com/rdoneux/nmna-api
 
 go 1.25.4
 

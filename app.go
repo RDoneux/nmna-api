@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/rdoneux/strfndr-api/services"
+	"github.com/rdoneux/nmna-api/services"
 	"github.com/joho/godotenv"
 )
 
