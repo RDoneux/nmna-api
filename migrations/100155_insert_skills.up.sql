@@ -663,4 +663,220 @@ INSERT INTO skills (
     1,
     0,
     'PASSIVE'
+),
+(
+    'Adaption',
+    'INTELLECT',
+    'You adapt to a hostile environment for 28 hours. As a result, you can breath safely, the temperature doesn''t kill you (though it might be extremely uncomfortable or debilitating), crushing gravity doesn''t incapacitate or harm you (though, again, you might be seriously hindered), and so on. In extreme environments, the GM might increase the cost of activating this esotery to a maximum cost of 10 Intellect points. Roughly speaking, the cost should equal the amount of damage you would sustain in a given round. For example, if you enter a hostile environment that would normally deal 6 points of damage per round, using Adaption to avoid that damage costs 6 points. You can protect other creatures in addition to yourself, but each additional creature costs you the same number of Intellect points as it costs to protect you. Thus, if it costs 6 points to protect yourself, it costs 12 more to protect two other people. This esotery never protects against quick, instantaneous threats, like an attack with a weapon or a sudden explosion of fire.',
+    0,
+    0,
+    0,
+    'ESOTERY'
+),
+(
+    'Flash',
+    'INTELLECT',
+    'You create an explosion of energy at a point within close range, affecting an area up to immediate range from that point. You must be able to see the location where you intend to center the explosion. The blast inflicts 2 points of damage to all creatures or objects within the area. Because this is an area attack, adding Effort to increase the damage works differently than it does for single-target attacks; if you apply a level of Effort to increase the damage, add 2 points of damage for each target, and even if you fail your attack roll, all targets in the area still take 1 point of damage.',
+    0,
+    0,
+    4,
+    'ESOTERY'
+),
+(
+    'Hover',
+    'INTELLECT',
+    'You float slowly into the air. If you concentrate, you can control your movement to remain motionless in the air, or float up to a short distance as your action, but not more; otherwise, you drift with the wind or with any momentum you have gained. This effect lasts for up to 10 minutes.',
+    0,
+    0,
+    2,
+    'ESOTERY'
+),
+(
+    'Mind Reading',
+    'INTELLECT',
+    'You can read the surface thoughts of a creature within short range of you, even if the target doesn''t want you to. You must be able to see the target. Once you have established contact, you can read the target''s thoughts for up to one minute. If you or. the target move out of range, the connection is broken.',
+    0,
+    0,
+    4,
+    'ESOTERY'
+),
+(
+    'Stasis',
+    'INTELLECT',
+    'You surround a foe or your size or smaller with scintillating energy, keeping it from moving or acting for one minute, as if frozen solid. You must be able to see the target, and it must be within short range. While in stasis, the target is impervious to harm, cannot be moved, and is immune to all effects.',
+    0,
+    0,
+    3,
+    'ESOTERY'
+),
+(
+    'Barrier',
+    'INTELLECT',
+    'You create an opaque, stationary barrier of solid energy within immediate range. The barrier is 3 meters by 3 meters and of negligible thicknes. It is a level 2 barrier and lasts for ten minutes. It can be placed anywhere it fits, whether against a solid object (including the ground) or floating in the air. Each level of Effort you apply strengthens the barrier by one level. For example, applying two levels of Effort creates a level 4 barrier.',
+    0,
+    0,
+    3,
+    'ESOTERY'
+),
+(
+    'Countermeasures',
+    'INTELLECT',
+    'You immediately end one ongoing numenera effect (such as an effect created by an esotery) within immediate range. Alternatively, you can use this as a defense action to cancel any incoming esotery targeted at you, or you can cancel any numenera device or the effect of any numenera device for 1d6 rounds. You ust touch the effect or device to cancel it.',
+    0,
+    0,
+    4,
+    'ESOTERY'
+),
+(
+    'Energy Protection',
+    'INTELLECT',
+    'Choose a descrete type of energy that you have experience with (such as heat, sonic, electricity, and so on). You gain +10 to armour against damage from that type of energy for 10 minutes. Alternatively, you gain +1 to Armour against damage from that energy for 28 hours. You mustbe familiar with the type of energy; for example, if you have no experience with a certian kind of extrademensional energy, you can''t protect against it. Instead of applying Effort to decrease the difficulty of this esotery, you can apply Effort to protect more targets, with each level of Effort affecting up to two additional targets. You must touch additional targets to protect them.',
+    0,
+    0,
+    3,
+    'ESOTERY'
+),
+(
+    'Sensor',
+    'INTELLECT',
+    'You create an immobile, invisible sensor within immediate range that lasts for 28 hours, At any time during that duration, you can concentrate to see, hear, and smell through the sensor, no matter how far you move from it. The sensor doesn''t grant you sensory capabilities beyond the norm.',
+    0,
+    0,
+    4,
+    'ESOTERY'
+),
+(
+    'Targeting Eye',
+    'SPECIAL_ABILITY',
+    'You are trained in any physical ranged attack that is an esotery or comes from a numenera device. For example, you are trained when using an Onslaught force blast because it''s a physical attack, but not when using an Onslaught mindslice because it''s a mental attack.',
+    0,
+    0,
+    0,
+    'ESOTERY'
+),
+(
+    'Invisibility',
+    'INTELLECT',
+    'You become invisible for ten minutes. While invisible, you are specialised in stealth and Speed defence tasks. This effect ends if you do something to reveal your presence or position - attacking, performing an esotery, using an ability, moving a large orbject, and so on. If this occurs, you can regain the remaining invisibility effect by taking an action to focus on hiding your position.',
+    0,
+    0,
+    4,
+    'ESOTERY'
+),
+(
+    'Mind Control',
+    'INTELLECT',
+    'You control the actions of another creature you touch. This effect lasts for ten minutes. The target must be level 2 or lower. Once you have established control, you maintain mental contact with the target and sense what it senses. You can allow it to act feely or override its control on a case-by-case basis. Instead of applying Effort to decrease the difficulty, you can apply Effort to increase the maximum level of the target. Thus, to control the mind of a level 5 target (three levels above the normal limit), you must apply three levels of Effort. Smart nanos use the Scan esotery on a creature to learn its level before trying to control its mind. When the Mind Control esotery ends, the creature doesn''t remember being controlled or anything it did while under your command.',
+    0,
+    0,
+    6,
+    'ESOTERY'
+),
+(
+    'Regeneration',
+    'INTELLECT',
+    'You restore points to a target''s Might or Speed Pool in one of two ways: either the chosen Pool regains up to 6 points, or it is restored to a total value of 12. You make this decision when you initiate this esotery. Points are regenerated at a rate of 1 point each round. You must maintain contact with the target the whole time. In no case can this raise a Pool higher than its maximum.',
+    0,
+    0,
+    6,
+    'ESOTERY'
+),
+(
+    'Reshape',
+    'INTELLECT',
+    'You reshape matter within short range in an area no larger than a 5 meter cube. If you spend only one action on this esotery, the changes you make are crude at best. If you spend at least ten minutes and succeed at an appropriate crafting task (with a difficulty at least one step higher than normal due to the circumstances), you can make complex changes to the material. You can''t change the nature of the material, only its shape. Thus you can make a hole in a wall or floor, or you can seal one up. You can fashion a rudimentary sword from a large piece of iron. You can break or repair a chian. With multiple uses of this esotery, you could bring about large changes, making a bridge, a wall , or a similar structure.',
+    0,
+    0,
+    6,
+    'ESOTERY'
+),
+(
+    'Slay',
+    'INTELLECT',
+    'You gather disrupting energy in your fingertip and touch a creature. If the target is an NPC or a creature of level 3 or lower, it dies. If the target is a PC or any tier, he moves down one step on the damage track.',
+    0,
+    0,
+    6,
+    'ESOTERY'
+),
+(
+    'Absorb Energy',
+    'INTELLECT',
+    'You touch an object and absorb its energy. If you touch a cypher, you render it useless. If you touch an artifact, roll on the artifact''s depletion. If you touch another kind of powered machine or device, the GM determines whether its power is fully drained. In any case, you absorb energy from the objects touched and regain 1d10 Intellect points. If this would give you more Intellect than your Pool''s maximum, the extra points are lost, and you must make a Might defense roll. The difficulty of the roll is equal to the number of points over your maximum you absorbed. If you fail the roll, you take 5 points of damage and are unable to act for one round. You can use this esotery as a defense action when you''re the target of an incomming esotery. Doing so cancels the incoming esotery, and you absorb the energy as if it were a device.',
+    0,
+    0,
+    7,
+    'ESOTERY'
+),
+(
+    'Dust to Dust',
+    'INTELLECT',
+    'You disintegrate one nonliving object that is smaller than you and whose level is less than or equal to your tier. You must touch the object to affect it. If the Gm feels it appropriate to the circumstances, you can disintegrate a portion of an object (the total volume of which is smaller than you) rather than the entire thing.',
+    0,
+    0,
+    7,
+    'ESOTERY'
+),
+(
+    'Knowing the Unknown',
+    'INTELLECT',
+    'Tapping into the datasphere, you can ask the GM one question and get a general answer. The GM assigns a level to the question, so the more obscure the answer, the more difficult the task. Generally, knowledge that you could find by looking somewhere other than your current location is a level 1, and obscure knowledge of the past is level 7. Gaining knowledge of the future is impossible.',
+    0,
+    0,
+    6,
+    'ESOTERY'
+),
+(
+    'Teleportation',
+    'INTELLECT',
+    'You instantaneously transmit yourself yourself to any location that you have seen or been to, no matter the distance, as long as it is on Earth (or whatever world you''re currently on). Instead of applying Effort to decrease the difficulty, you can apply Effort to bring other people with you, with each level of Effort affecting up tot three additional targets. You must touch any additional targets',
+    0,
+    0,
+    6,
+    'ESOTERY'
+),
+(
+    'True Senses',
+    'SPECIAL_ABILITY',
+    'You can see in complete darkness up to 15 meters as if it were dim light. You recognise holograms, disuises, optical illusions, sound mimicry, and other such tricks (for all senses) for what they are.',
+    0,
+    0,
+    0,
+    'ESOTERY'
+),
+(
+    'Control Weather',
+    'INTELLECT',
+    'You change the weather in your general region. If performed indorrs, this esotery creates only minor weather effects, such as mist, mild temperature changes, and so on. If performed outside, you can create rain, fog, snow, wind, or any other kind of normal (not overly severe) weather. The change lasts for a natural length of time, so a storm might last for an hour, fog for two or three hours, and snow for a few hours (or for ten minutes if it''s out of season). For the first ten minutes after activating this esotery, you can create more dramatic and more specific effects, such as lightening strikes, giant hailstones, twisters, hurricane force winds, and so on. These effects must occur within 305 meters of your location. You must spend your turn concetrating to create an effect or to maintain it in a new round. These effects inflict 6 points of damage each round.',
+    0,
+    0,
+    10,
+    'ESOTERY'
+),
+(
+    'Move Mountains',
+    'INTELLECT',
+    'You exert a tremendous amount of physical force within 76 meters of you. You can push up to 10 tons of material up to 15 meters. This force can collapse buildings, redirect small rivers, or perform other dramatic effects.',
+    0,
+    0,
+    9,
+    'ESOTERY'
+),
+(
+    'Traverse the Worlds',
+    'INTELLECT',
+    'You instantaneously transmit yourself to another planet, dimension, plane, or level of reality. You must known the destination exists; the GM will decide if you have enough information to confirm its existence and what the level of difficulty might be to reach the destination. Instead of applying Effort to decrease the difficulty, you can apply Effort to bring other people with you, with each level of Effort affecting up to three additional targets. You must touch any additional targets.',
+    0,
+    0,
+    8,
+    'ESOTERY'
+),
+(
+    'Usurp Cypher',
+    'SPECIAL_ABILITY',
+    'Choose one cypher that you carry. The cypher must have an effect that is not instantaneous. You destroy the cypher and gain its power, which functions for you continously. You can choose a cypher when you gain this ability, or you can and make the choice later. However once usurp a cypher''s power, you cannot later switch to a different cypher - the esotery works only once.',
+    0,
+    0,
+    0,
+    'ESOTERY'
 );

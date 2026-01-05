@@ -104,6 +104,41 @@ INSERT INTO character_types_tier_skills (
     (SELECT ctt.id FROM character_types_tiers ctt JOIN character_types ct ON ctt.character_type_id = ct.id WHERE ct.name = 'Nano' AND ctt.tier = 1),
     (SELECT id FROM skills WHERE name = 'Esotery Choice Slot'),
     'TRAINED'
+),
+(
+    (SELECT ctt.id FROM character_types_tiers ctt JOIN character_types ct ON ctt.character_type_id = ct.id WHERE ct.name = 'Nano' AND ctt.tier = 2),
+    (SELECT id FROM skills WHERE name = 'Esotery Choice Slot'),
+    'TRAINED'
+),
+(
+    (SELECT ctt.id FROM character_types_tiers ctt JOIN character_types ct ON ctt.character_type_id = ct.id WHERE ct.name = 'Nano' AND ctt.tier = 3),
+    (SELECT id FROM skills WHERE name = 'Adept Cypher Use'),
+    'TRAINED'
+),
+(
+    (SELECT ctt.id FROM character_types_tiers ctt JOIN character_types ct ON ctt.character_type_id = ct.id WHERE ct.name = 'Nano' AND ctt.tier = 3),
+    (SELECT id FROM skills WHERE name = 'Esotery Choice Slot'),
+    'TRAINED'
+),
+(
+    (SELECT ctt.id FROM character_types_tiers ctt JOIN character_types ct ON ctt.character_type_id = ct.id WHERE ct.name = 'Nano' AND ctt.tier = 4),
+    (SELECT id FROM skills WHERE name = 'Estorery Choice Slot'),
+    'TRAINED'
+),
+(
+    (SELECT ctt.id FROM character_types_tiers ctt JOIN character_types ct ON ctt.character_type_id = ct.id WHERE ct.name = 'Nano' AND ctt.tier = 5),
+    (SELECT id FROM skills WHERE name = 'Master Cypher Use'),
+    'TRAINED'
+),
+(
+    (SELECT ctt.id FROM character_types_tiers ctt JOIN character_types ct ON ctt.character_type_id = ct.id WHERE ct.name = 'Nano' AND ctt.tier = 5),
+    (SELECT id FROM skills WHERE name = 'Esotery Choice Slot'),
+    'TRAINED'
+),
+(
+    (SELECT ctt.id FROM character_types_tiers ctt JOIN character_types ct ON ctt.character_type_id = ct.id WHERE ct.name = 'Nano' AND ctt.tier = 6),
+    (SELECT id FROM skills WHERE name = 'Esotery Choice Slot'),
+    'TRAINED'
 );
 
 INSERT INTO character_types_tier_equipment (
