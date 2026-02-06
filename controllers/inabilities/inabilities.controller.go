@@ -12,7 +12,17 @@ type InabilitiesController struct {
 	DB *sqlx.DB
 }
 
-func (inabilitiesController *InabilitiesController) GetInabilityById(ctx *fiber.Ctx) error {
+func (inabilityController *InabilitiesController) RegisterRoutes(app *fiber.App) {
+
+	app.Get("/protected/inability/:inabilityId", inabilityController.getInabilityById)
+	app.Get("/protected/inabilities", inabilityController.findInabilitiesByQuery)
+	app.Post("/protected/inabilities", inabilityController.createInability)
+	app.Put("/protected/inabilities/:inabilityId", inabilityController.updateInability)
+	app.Delete("/protected/inabilities/:inabilityId", inabilityController.deleteInability)
+
+}
+
+func (inabilitiesController *InabilitiesController) getInabilityById(ctx *fiber.Ctx) error {
 
 	db := inabilitiesController.DB
 	inabilityId := ctx.Params("inabilityId")
@@ -26,7 +36,7 @@ func (inabilitiesController *InabilitiesController) GetInabilityById(ctx *fiber.
 
 }
 
-func (inabilitiesController *InabilitiesController) FindInabilitiesByQuery(ctx *fiber.Ctx) error {
+func (inabilitiesController *InabilitiesController) findInabilitiesByQuery(ctx *fiber.Ctx) error {
 
 	db := inabilitiesController.DB
 	queryName := ctx.Query("name")
@@ -54,7 +64,7 @@ func (inabilitiesController *InabilitiesController) FindInabilitiesByQuery(ctx *
 
 }
 
-func (inabilitiesController *InabilitiesController) CreateInability(ctx *fiber.Ctx) error {
+func (inabilitiesController *InabilitiesController) createInability(ctx *fiber.Ctx) error {
 
 	db := inabilitiesController.DB
 	id := uuid.New().String()
@@ -80,7 +90,7 @@ func (inabilitiesController *InabilitiesController) CreateInability(ctx *fiber.C
 
 }
 
-func (inabilitiesController *InabilitiesController) UpdateInability(ctx *fiber.Ctx) error {
+func (inabilitiesController *InabilitiesController) updateInability(ctx *fiber.Ctx) error {
 
 	db := inabilitiesController.DB
 	inabilityId := ctx.Params("inabilityId")
@@ -106,7 +116,7 @@ func (inabilitiesController *InabilitiesController) UpdateInability(ctx *fiber.C
 
 }
 
-func (inabilitiesController *InabilitiesController) DeleteInability(ctx *fiber.Ctx) error {
+func (inabilitiesController *InabilitiesController) deleteInability(ctx *fiber.Ctx) error {
 
 	db := inabilitiesController.DB
 	inabilitiesId := ctx.Params("inabilityId")

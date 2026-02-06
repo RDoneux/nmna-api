@@ -14,7 +14,13 @@ type UtilsController struct {
 	DB *sqlx.DB
 }
 
-func (utilsController *UtilsController) GetHealth(ctx *fiber.Ctx) error {
+func (utilsController *UtilsController) RegisterRoutes(app *fiber.App) {
+
+	app.Get("/health", utilsController.getHealth)
+
+}
+
+func (utilsController *UtilsController) getHealth(ctx *fiber.Ctx) error {
 	
 	// --- CHECK DB CONNECTION --- //
 	if err := utilsController.DB.Ping(); err != nil {

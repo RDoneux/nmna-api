@@ -14,7 +14,27 @@ type CharacterController struct {
 	DB *sqlx.DB
 }
 
-func (characterController *CharacterController) CreateCharacter(ctx *fiber.Ctx) error {
+func (characterController *CharacterController) RegisterRoutes(app *fiber.App) {
+
+	app.Get("/protected/character/:id", characterController.getCharacterById)
+	app.Get("/protected/characters/user/:id", characterController.getCharactersByUserId)
+	app.Post("/protected/characters", characterController.createCharacter)
+	app.Put("/protected/characters/:characterId/skill/:skillId", characterController.addCharacterSkill)
+	app.Put("/protected/characters/:characterId/inability/:inabilityId", characterController.addCharacterInability)
+	app.Put("/protected/characters/:characterId/item/:itemId", characterController.addCharacterItem)
+	app.Put("/protected/characters/:characterId/background", characterController.updateCharacterBackground)
+	app.Put("/protected/characters/:characterId/worn-items/:characterItemId", characterController.addCharacterWornItem)
+	app.Put("/protected/characters/:characterId/pool", characterController.updateCharacterPool)
+	app.Put("/protected/characters/:characterId/info", characterController.updateCharacterInformation)
+	app.Delete("/protected/characters/skill/:characterSkillId", characterController.removeCharacterSkill)
+	app.Delete("/protected/characters/inability/:characterInabilityId", characterController.removeCharacterInability)
+	app.Delete("/protected/characters/item/:characterItemId", characterController.removeCharacterItem)
+	app.Delete("/protected/characters/worn-items/:characterWornItemId", characterController.removeCharacterWornItem)
+	app.Delete("/protected/characters/:characterId/archive", characterController.archiveCharacter)
+
+}
+
+func (characterController *CharacterController) createCharacter(ctx *fiber.Ctx) error {
 
 	// get user id & character name from body
 	var userDetails struct {
@@ -77,7 +97,7 @@ func (characterController *CharacterController) CreateCharacter(ctx *fiber.Ctx) 
 	})
 }
 
-func (characterController *CharacterController) GetCharacterById(ctx *fiber.Ctx) error {
+func (characterController *CharacterController) getCharacterById(ctx *fiber.Ctx) error {
 
 	// get id from params
 	characterId := ctx.Params("id")
@@ -122,7 +142,7 @@ func (characterController *CharacterController) GetCharacterById(ctx *fiber.Ctx)
 	return ctx.Status(fiber.StatusOK).JSON(character.ToNested())
 }
 
-func (characterController *CharacterController) GetCharactersByUserId(ctx *fiber.Ctx) error {
+func (characterController *CharacterController) getCharactersByUserId(ctx *fiber.Ctx) error {
 
 	// get user id from params
 	userId := ctx.Params("id")
@@ -153,7 +173,8 @@ func (characterController *CharacterController) GetCharactersByUserId(ctx *fiber
 
 }
 
-func (characterController *CharacterController) AddCharacterSkill(ctx *fiber.Ctx) error {
+// need to calculate pool modifiers
+func (characterController *CharacterController) addCharacterSkill(ctx *fiber.Ctx) error {
 
 	// get skill id from body
 	db := characterController.DB
@@ -177,7 +198,8 @@ func (characterController *CharacterController) AddCharacterSkill(ctx *fiber.Ctx
 
 }
 
-func (characterController *CharacterController) RemoveCharacterSkill(ctx *fiber.Ctx) error {
+// need to calculate pool modifiers
+func (characterController *CharacterController) removeCharacterSkill(ctx *fiber.Ctx) error {
 
 	// get props from path
 	db := characterController.DB
@@ -206,7 +228,7 @@ func (characterController *CharacterController) RemoveCharacterSkill(ctx *fiber.
 
 }
 
-func (characterController *CharacterController) AddCharacterInability(ctx *fiber.Ctx) error {
+func (characterController *CharacterController) addCharacterInability(ctx *fiber.Ctx) error {
 
 	// get props from body
 	db := characterController.DB
@@ -229,7 +251,7 @@ func (characterController *CharacterController) AddCharacterInability(ctx *fiber
 
 }
 
-func (characterController *CharacterController) RemoveCharacterInability(ctx *fiber.Ctx) error {
+func (characterController *CharacterController) removeCharacterInability(ctx *fiber.Ctx) error {
 
 	// get id from path
 	db := characterController.DB
@@ -257,7 +279,8 @@ func (characterController *CharacterController) RemoveCharacterInability(ctx *fi
 
 }
 
-func (characterController *CharacterController) AddCharacterItem(ctx *fiber.Ctx) error {
+// need to calculate pool modifiers
+func (characterController *CharacterController) addCharacterItem(ctx *fiber.Ctx) error {
 
 	db := characterController.DB
 	// get ids from params
@@ -281,7 +304,8 @@ func (characterController *CharacterController) AddCharacterItem(ctx *fiber.Ctx)
 
 }
 
-func (characterController *CharacterController) RemoveCharacterItem(ctx *fiber.Ctx) error {
+// need to calculate pool modifiers
+func (characterController *CharacterController) removeCharacterItem(ctx *fiber.Ctx) error {
 
 	db := characterController.DB
 	// get itemId from path
@@ -310,7 +334,7 @@ func (characterController *CharacterController) RemoveCharacterItem(ctx *fiber.C
 
 }
 
-func (characterController *CharacterController) UpdateCharacterBackground(ctx *fiber.Ctx) error {
+func (characterController *CharacterController) updateCharacterBackground(ctx *fiber.Ctx) error {
 
 	// get character background from body
 	db := characterController.DB
@@ -339,14 +363,15 @@ func (characterController *CharacterController) UpdateCharacterBackground(ctx *f
 
 }
 
-func (characterController *CharacterController) AddCharacterWornItem(ctx *fiber.Ctx) error {
+// need to calculate pool modifiers
+func (characterController *CharacterController) addCharacterWornItem(ctx *fiber.Ctx) error {
 
 	// get character item id, character id & location from params
 	db := characterController.DB
 	characterItemId := ctx.Params("characterItemId")
 	characterId := ctx.Params("characterId")
 	var params struct {
-		Location        models.EquipLocation `json:"location"`
+		Location models.EquipLocation `json:"location"`
 	}
 	err := ctx.BodyParser(&params)
 	if err != nil {
@@ -389,7 +414,8 @@ func (characterController *CharacterController) AddCharacterWornItem(ctx *fiber.
 
 }
 
-func (characterController *CharacterController) RemoveCharacterWornItem(ctx *fiber.Ctx) error {
+// need to calculate pool modifiers
+func (characterController *CharacterController) removeCharacterWornItem(ctx *fiber.Ctx) error {
 
 	db := characterController.DB
 	// get characterItemId from params
@@ -417,7 +443,7 @@ func (characterController *CharacterController) RemoveCharacterWornItem(ctx *fib
 
 }
 
-func (characterController *CharacterController) UpdateCharacterPool(ctx *fiber.Ctx) error {
+func (characterController *CharacterController) updateCharacterPool(ctx *fiber.Ctx) error {
 
 	db := characterController.DB
 
@@ -480,7 +506,7 @@ func (characterController *CharacterController) UpdateCharacterPool(ctx *fiber.C
 
 }
 
-func (characterController *CharacterController) UpdateCharacterInformation(ctx *fiber.Ctx) error {
+func (characterController *CharacterController) updateCharacterInformation(ctx *fiber.Ctx) error {
 
 	db := characterController.DB
 	// get character id & information from body & path params
@@ -508,7 +534,7 @@ func (characterController *CharacterController) UpdateCharacterInformation(ctx *
 
 }
 
-func (characterController *CharacterController) ArchiveCharacter(ctx *fiber.Ctx) error {
+func (characterController *CharacterController) archiveCharacter(ctx *fiber.Ctx) error {
 
 	db := characterController.DB
 
@@ -526,7 +552,7 @@ func (characterController *CharacterController) ArchiveCharacter(ctx *fiber.Ctx)
 	}
 
 	_, err = db.Exec(query, args...)
-	if err != nil {	
+	if err != nil {
 		return err
 	}
 

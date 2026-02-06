@@ -16,7 +16,20 @@ type ItemsController struct {
 	DB *sqlx.DB
 }
 
-func (itemsController *ItemsController) GetItemById(ctx *fiber.Ctx) error {
+func (itemController *ItemsController) RegisterRoutes(app *fiber.App) {
+
+	app.Get("/protected/item/:itemId", itemController.getItemById)
+	app.Get("/protected/items", itemController.findItemsByQuery)
+	app.Post("/protected/items", itemController.createItem)
+	app.Put("/protected/items/:itemId", itemController.updateItem)
+	app.Delete("/protected/items/:itemId", itemController.deleteItem)
+
+	app.Get("/items/types", itemController.getItemTypes)
+	app.Get("/items/equip-locations", itemController.getEquipLocations)
+
+}
+
+func (itemsController *ItemsController) getItemById(ctx *fiber.Ctx) error {
 
 	db := itemsController.DB
 	itemId := ctx.Params("itemId")
@@ -30,7 +43,7 @@ func (itemsController *ItemsController) GetItemById(ctx *fiber.Ctx) error {
 
 }
 
-func (itemsController *ItemsController) FindItemsByQuery(ctx *fiber.Ctx) error {
+func (itemsController *ItemsController) findItemsByQuery(ctx *fiber.Ctx) error {
 
 	db := itemsController.DB
 
@@ -87,7 +100,7 @@ func (itemsController *ItemsController) FindItemsByQuery(ctx *fiber.Ctx) error {
 
 }
 
-func (itemsController *ItemsController) CreateItem(ctx *fiber.Ctx) error {
+func (itemsController *ItemsController) createItem(ctx *fiber.Ctx) error {
 	
 	db := itemsController.DB
 	id := uuid.New().String()
@@ -135,7 +148,7 @@ func (itemsController *ItemsController) CreateItem(ctx *fiber.Ctx) error {
 	
 }
 
-func (itemsController *ItemsController) UpdateItem(ctx *fiber.Ctx) error {
+func (itemsController *ItemsController) updateItem(ctx *fiber.Ctx) error {
 	
 	db := itemsController.DB
 	itemId := ctx.Params("itemId")
@@ -193,7 +206,7 @@ func (itemsController *ItemsController) UpdateItem(ctx *fiber.Ctx) error {
 	
 }
 
-func (itemsController *ItemsController) DeleteItem(ctx *fiber.Ctx) error {
+func (itemsController *ItemsController) deleteItem(ctx *fiber.Ctx) error {
 	
 	db := itemsController.DB
 	itemId := ctx.Params("itemId")
@@ -207,7 +220,7 @@ func (itemsController *ItemsController) DeleteItem(ctx *fiber.Ctx) error {
 	
 }
 
-func (itemsController *ItemsController) GetItemTypes(ctx *fiber.Ctx) error {
+func (itemsController *ItemsController) getItemTypes(ctx *fiber.Ctx) error {
 
 	itemTypes, err := GetItemTypes(*itemsController.DB)
 	if err != nil {
@@ -217,7 +230,7 @@ func (itemsController *ItemsController) GetItemTypes(ctx *fiber.Ctx) error {
 	return ctx.Status(fiber.StatusOK).JSON(itemTypes)
 }
 
-func (itemsController *ItemsController) GetEquipLocations(ctx *fiber.Ctx) error {
+func (itemsController *ItemsController) getEquipLocations(ctx *fiber.Ctx) error {
 
 	db := itemsController.DB
 	equipLocations, err := services.GetEnumValue(*db, "character_worn_items", "location")

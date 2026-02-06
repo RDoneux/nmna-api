@@ -17,7 +17,18 @@ type UsersController struct {
 	DB *sqlx.DB
 }
 
-func (usersController *UsersController) GetUsers(ctx *fiber.Ctx) error {
+func (usersController *UsersController) RegisterRoutes(app *fiber.App) {
+
+	app.Get("/protected/users", usersController.getUsers)
+	app.Get("/protected/user/:id", usersController.getUserById)
+	app.Get("/protected/user", usersController.getUserByUsername)
+	app.Post("/users", usersController.createUser)
+	app.Put("/protected/users/:id", usersController.updateUser)
+	app.Delete("/protected/users/:id", usersController.deleteUser)
+
+}
+
+func (usersController *UsersController) getUsers(ctx *fiber.Ctx) error {
 
 	// Build query
 	query, args, err := squirrel.
@@ -46,7 +57,7 @@ func (usersController *UsersController) GetUsers(ctx *fiber.Ctx) error {
 	return ctx.Status(fiber.StatusOK).JSON(users)
 }
 
-func (usersController *UsersController) GetUserById(ctx *fiber.Ctx) error {
+func (usersController *UsersController) getUserById(ctx *fiber.Ctx) error {
 
 	// get id from path param
 	userId := ctx.Params("id")
@@ -75,7 +86,7 @@ func (usersController *UsersController) GetUserById(ctx *fiber.Ctx) error {
 
 }
 
-func (usersController *UsersController) GetUserByUsername(ctx *fiber.Ctx) error {
+func (usersController *UsersController) getUserByUsername(ctx *fiber.Ctx) error {
 
 	db := usersController.DB
 	// get username from query params
@@ -95,7 +106,7 @@ func (usersController *UsersController) GetUserByUsername(ctx *fiber.Ctx) error 
 
 }
 
-func (usersController *UsersController) CreateUser(ctx *fiber.Ctx) error {
+func (usersController *UsersController) createUser(ctx *fiber.Ctx) error {
 
 	db := usersController.DB
 
@@ -166,7 +177,7 @@ func (usersController *UsersController) CreateUser(ctx *fiber.Ctx) error {
 
 }
 
-func (usersController *UsersController) UpdateUser(ctx *fiber.Ctx) error {
+func (usersController *UsersController) updateUser(ctx *fiber.Ctx) error {
 
 	// get path param
 	userId := ctx.Params("id")
@@ -228,7 +239,7 @@ func (usersController *UsersController) UpdateUser(ctx *fiber.Ctx) error {
 
 }
 
-func (usersController *UsersController) DeleteUser(ctx *fiber.Ctx) error {
+func (usersController *UsersController) deleteUser(ctx *fiber.Ctx) error {
 
 	// get id from params
 	userId := ctx.Params("id")

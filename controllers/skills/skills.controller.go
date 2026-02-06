@@ -13,7 +13,20 @@ type SkillsController struct {
 	DB *sqlx.DB
 }
 
-func (skillsController *SkillsController) GetSkillById(ctx *fiber.Ctx) error {
+func (skillController *SkillsController) RegisterRoutes(app *fiber.App) {
+
+	app.Get("/protected/skill/:skillId", skillController.getSkillById)
+	app.Get("/protected/skills", skillController.findSkillByQuery)
+	app.Post("/protected/skills", skillController.createSkill)
+	app.Put("/protected/skills/:skillId", skillController.updateSkill)
+	app.Delete("/protected/skills/:skillId", skillController.deleteSkill)
+
+	app.Get("/skills/categories", skillController.getSkillCategories)
+	app.Get("/skills/types", skillController.getSkillTypes)
+
+}
+
+func (skillsController *SkillsController) getSkillById(ctx *fiber.Ctx) error {
 
 	db := skillsController.DB
 	skillId := ctx.Params("skillId")
@@ -27,7 +40,7 @@ func (skillsController *SkillsController) GetSkillById(ctx *fiber.Ctx) error {
 
 }
 
-func (skillsController *SkillsController) FindSkillByQuery(ctx *fiber.Ctx) error {
+func (skillsController *SkillsController) findSkillByQuery(ctx *fiber.Ctx) error {
 
 	db := skillsController.DB
 
@@ -73,7 +86,7 @@ func (skillsController *SkillsController) FindSkillByQuery(ctx *fiber.Ctx) error
 
 }
 
-func (skillsController *SkillsController) CreateSkill(ctx *fiber.Ctx) error {
+func (skillsController *SkillsController) createSkill(ctx *fiber.Ctx) error {
 
 	db := skillsController.DB
 	id := uuid.New().String()
@@ -99,7 +112,7 @@ func (skillsController *SkillsController) CreateSkill(ctx *fiber.Ctx) error {
 
 }
 
-func (skillsController *SkillsController) UpdateSkill(ctx *fiber.Ctx) error {
+func (skillsController *SkillsController) updateSkill(ctx *fiber.Ctx) error {
 
 	db := skillsController.DB
 	id := ctx.Params("skillId")
@@ -110,7 +123,7 @@ func (skillsController *SkillsController) UpdateSkill(ctx *fiber.Ctx) error {
 		return err
 	}
 
-	err = UpdateSkillById(*db, &skill)
+	err = UpdateSkillById(*db, &skill, id)
 	if err != nil {
 		return err
 	}
@@ -124,7 +137,7 @@ func (skillsController *SkillsController) UpdateSkill(ctx *fiber.Ctx) error {
 
 }
 
-func (skillsController *SkillsController) DeleteSkill(ctx *fiber.Ctx) error {
+func (skillsController *SkillsController) deleteSkill(ctx *fiber.Ctx) error {
 
 	db := skillsController.DB
 	id := ctx.Params("skillId")
@@ -138,7 +151,7 @@ func (skillsController *SkillsController) DeleteSkill(ctx *fiber.Ctx) error {
 
 }
 
-func (skillsController *SkillsController) GetSkillCategories(ctx *fiber.Ctx) error {
+func (skillsController *SkillsController) getSkillCategories(ctx *fiber.Ctx) error {
 
 	db := skillsController.DB
 	skillCategories, err := services.GetEnumValue(*db, "skills", "category")
@@ -150,7 +163,7 @@ func (skillsController *SkillsController) GetSkillCategories(ctx *fiber.Ctx) err
 
 }
 
-func (skillsController *SkillsController) GetSkillTypes(ctx *fiber.Ctx) error {
+func (skillsController *SkillsController) getSkillTypes(ctx *fiber.Ctx) error {
 
 	db := skillsController.DB
 	skillTypes, err := services.GetEnumValue(*db, "skills", "type")

@@ -48,7 +48,7 @@ func InsertSKill(db sqlx.DB, skill *models.Skill) error {
 
 }
 
-func UpdateSkillById(db sqlx.DB, skill *models.Skill) error {
+func UpdateSkillById(db sqlx.DB, skill *models.Skill, skillId string) error {
 
 	query, args, err := squirrel.
 		Update("skills").
@@ -59,6 +59,7 @@ func UpdateSkillById(db sqlx.DB, skill *models.Skill) error {
 		Set("armour_modifier", skill.ArmourModifier).
 		Set("cost", skill.Cost).
 		Set("type", skill.Type).
+		Where("id = ?", skillId).
 		ToSql()
 	if err != nil {
 		return err

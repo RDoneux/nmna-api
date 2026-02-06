@@ -17,7 +17,14 @@ type AuthorisationController struct {
 	DB *sqlx.DB
 }
 
-func (securityController *AuthorisationController) RefreshToken(ctx *fiber.Ctx) error {
+func (securityController *AuthorisationController) RegisterRoutes(app *fiber.App) {
+
+	app.Get("/refresh", securityController.refreshToken)
+	app.Get("/login", securityController.signIn)
+
+}
+
+func (securityController *AuthorisationController) refreshToken(ctx *fiber.Ctx) error {
 
 	var jwtSecret = []byte(os.Getenv("JWT_SECRET"))
 
@@ -81,7 +88,7 @@ func (securityController *AuthorisationController) RefreshToken(ctx *fiber.Ctx) 
 	})
 }
 
-func (securityController *AuthorisationController) SignIn(ctx *fiber.Ctx) error {
+func (securityController *AuthorisationController) signIn(ctx *fiber.Ctx) error {
 
 	// get basic auth
 	username, password, ok := GetBasicAuth(ctx)

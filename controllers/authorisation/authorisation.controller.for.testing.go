@@ -12,10 +12,10 @@ import (
 func TestGetUsers(t *testing.T) {
 
 	app := fiber.New()
-	authorisationController := &AuthorisationController{
-		// need to mock the sqlite db here
-	}
-	app.Get("/signin", authorisationController.SignIn)
+	// authorisationController := &AuthorisationController{
+	// 	// need to mock the sqlite db here
+	// }
+	// app.Get("/signin", authorisationController.SignIn)
 
 	req := httptest.NewRequest(http.MethodGet, "/signin", nil)
 	resp, _ := app.Test(req)
