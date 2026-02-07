@@ -3419,7 +3419,7 @@
             <mxRectangle height="30" width="80" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="CeWMys9uCenv67ZpyYrq-7" parent="CeWMys9uCenv67ZpyYrq-5" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" value="item_id VARCHAR(100) NOT NULL" vertex="1">
+        <mxCell id="CeWMys9uCenv67ZpyYrq-7" parent="CeWMys9uCenv67ZpyYrq-5" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" value="item_id VARCHAR(36) NOT NULL" vertex="1">
           <mxGeometry height="30" width="490" x="80" as="geometry">
             <mxRectangle height="30" width="490" as="alternateBounds" />
           </mxGeometry>

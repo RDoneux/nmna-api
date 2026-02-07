@@ -31,7 +31,7 @@ func GetCharacterById(db sqlx.DB, characterId string) (models.Character, error) 
 func GetCharacterSkills(db sqlx.DB, characterId string) ([]models.Skill, error) {
 
 	query, args, err := squirrel.
-		Select("cs.id", "name", "category", "description", "attack_modifier", "armour_modifier", "cost", "type").
+		Select("cs.id", "name", "category", "description", "cost", "type").
 		From("character_skills cs").
 		Join("skills s ON cs.skill_id = s.id").
 		Where("cs.character_id = ?", characterId).

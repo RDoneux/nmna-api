@@ -32,8 +32,8 @@ func InsertSKill(db sqlx.DB, skill *models.Skill) error {
 
 	query, args, err := squirrel.
 		Insert("skills").
-		Columns("id", "name", "category", "description", "attack_modifier", "armour_modifier", "cost", "type").
-		Values(skill.ID, skill.Name, skill.Category, skill.Description, skill.ArmourModifier, skill.ArmourModifier, skill.Cost, skill.Type).
+		Columns("id", "name", "category", "description", "cost", "type").
+		Values(skill.ID, skill.Name, skill.Category, skill.Description, skill.Cost, skill.Type).
 		ToSql()
 	if err != nil {
 		return err
@@ -55,8 +55,6 @@ func UpdateSkillById(db sqlx.DB, skill *models.Skill, skillId string) error {
 		Set("name", skill.Name).
 		Set("category", skill.Category).
 		Set("description", skill.Description).
-		Set("attack_modifier", skill.AttackModifier).
-		Set("armour_modifier", skill.ArmourModifier).
 		Set("cost", skill.Cost).
 		Set("type", skill.Type).
 		Where("id = ?", skillId).

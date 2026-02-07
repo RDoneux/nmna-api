@@ -53,8 +53,6 @@ func (skillsController *SkillsController) findSkillByQuery(ctx *fiber.Ctx) error
 			"name",
 			"description",
 			"category",
-			"attack_modifier",
-			"armour_modifier",
 			"cost",
 			"type").
 		From("skills")

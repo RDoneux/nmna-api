@@ -42,27 +42,22 @@ VALUES (
     );
 
 INSERT INTO
-    artifacts_pool_modifiers (
-        artifact_id,
+    pool_modifiers (
         pool_type,
         modifier_value,
-        edge_value
+        edge_value,
+        foreign_key
     )
 VALUES (
-        (
-            SELECT item_id
-            FROM artifacts
-            WHERE
-                item_id = (
-                    SELECT id
-                    FROM items
-                    WHERE
-                        name = 'Living Armour Sheath'
-                )
-        ),
         'ARMOUR',
         2,
-        0
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Living Armour Sheath'
+        )
     );
 
 INSERT INTO
