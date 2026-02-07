@@ -1,6 +1,7 @@
 package models
 
 type CharacterType string
+type PoolType string
 
 const (
 	DESCRIPTOR CharacterType = "Descriptor"
@@ -9,14 +10,23 @@ const (
 	CUSTOM     CharacterType = "Custom"
 )
 
+const (
+	MIGHT_POOL_TYPE     PoolType = "MIGHT"
+	SPEED_POOL_TYPE     PoolType = "SPEED"
+	INTELLECT_POOL_TYPE PoolType = "INTELLECT"
+	ARMOUR_POOL_TYPE    PoolType = "ARMOUR"
+	ATTACK_POOL_TYPE    PoolType = "ATTACK"
+)
+
 type Character struct {
 	CharacterInformation
-	ID                   string      `json:"id"`
-	UserId               *string      `json:"userId" db:"user_id"`
-	CharacterSkills      []Skill     `json:"skills"`
-	CharacterInabilities []Inability `json:"inabilities"`
-	CharacterItems       []Item      `json:"items"`
-	CharacterWornItems   []Item      `json:"wornItems"`
+	ID                     string                  `json:"id"`
+	UserId                 *string                 `json:"userId" db:"user_id"`
+	CharacterSkills        []Skill                 `json:"skills"`
+	CharacterInabilities   []Inability             `json:"inabilities"`
+	CharacterItems         []Item                  `json:"items"`
+	CharacterWornItems     []Item                  `json:"wornItems"`
+	CharacterPoolModifiers []CharacterPoolModifier `json:"characterPoolModifiers"`
 	CharacterPool
 	CharacterBackground
 }
@@ -50,6 +60,14 @@ type CharacterPool struct {
 	Effort                      uint32 `json:"effort"`
 }
 
+type CharacterPoolModifier struct {
+	Source        string   `json:"source" db:"source"`
+	SourceType    string   `json:"sourceType"`
+	PoolType      PoolType `json:"poolType" db:"pool_type"`
+	ModifierValue int      `json:"modifierValue" db:"modifier_value"`
+	EdgeValue     int      `json:"edgeValue" db:"edge_value"`
+}
+
 type CharacterBackground struct {
 	CharacterId string `json:"backgroundCharacterId" db:"character_id"`
 	Description string `json:"description" db:"description"`
@@ -69,18 +87,19 @@ type CharacterWornItem struct {
 
 func (character *Character) ToNested() map[string]any {
 	return map[string]any{
-		"id":                   character.ID,
-		"name":                 character.Name,
-		"shins":                character.Shins,
-		"experiencePoints":     character.ExperiencePoints,
-		"tier":                 character.Tier,
-		"userId":               character.UserId,
-		"characterPool":        character.CharacterPool,
-		"characterBackground":  character.CharacterBackground,
-		"characterSkills":      character.CharacterSkills,
-		"characterInabilities": character.CharacterInabilities,
-		"characterItems":       character.CharacterItems,
-		"characterWornItems":   character.CharacterWornItems,
+		"id":                     character.ID,
+		"name":                   character.Name,
+		"shins":                  character.Shins,
+		"experiencePoints":       character.ExperiencePoints,
+		"tier":                   character.Tier,
+		"userId":                 character.UserId,
+		"characterPool":          character.CharacterPool,
+		"characterPoolModifiers": character.CharacterPoolModifiers,
+		"characterBackground":    character.CharacterBackground,
+		"characterSkills":        character.CharacterSkills,
+		"characterInabilities":   character.CharacterInabilities,
+		"characterItems":         character.CharacterItems,
+		"characterWornItems":     character.CharacterWornItems,
 	}
 }
 

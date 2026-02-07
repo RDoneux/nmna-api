@@ -503,7 +503,7 @@ func UpdateCharacterInformation(db sqlx.DB, characterId string, characterInfo mo
 	query, args, err := squirrel.
 		Update("characters").
 		Set("name", characterInfo.Name).
-		Set("experience_points", characterInfo.ExperiencePoints). 
+		Set("experience_points", characterInfo.ExperiencePoints).
 		Set("tier", characterInfo.Tier).
 		Set("shins", characterInfo.Shins).
 		Where("id = ?", characterId).
@@ -539,5 +539,35 @@ func GetCharacterInformation(db sqlx.DB, characterId string) (models.CharacterIn
 	}
 
 	return characterInfo, nil
+
+}
+
+func CalculateCharacterSkillPoolModifiers(db sqlx.DB, characterId string) ([]models.CharacterPoolModifier, error) {
+
+	// need to add items, inabilities
+
+	query, args, err := squirrel.
+		Select("s.name AS source", "pool_type", "modifier_value", "edge_value").
+		From("characters c").
+		Join("character_skills cs ON cs.character_id = c.id").
+		Join("skills s ON cs.skill_id = s.id").
+		Join("pool_modifiers pm ON pm.foreign_key = s.id").
+		Where("c.id = ?", characterId).
+		ToSql()
+	if err != nil {
+		return nil, err
+	}
+
+	var poolModifiers []models.CharacterPoolModifier
+	err = db.Select(&poolModifiers, query, args...)
+	if err != nil {
+		return nil, err
+	}
+
+	for i := range poolModifiers {
+		poolModifiers[i].SourceType = "Skill"
+	}
+
+	return poolModifiers, nil
 
 }

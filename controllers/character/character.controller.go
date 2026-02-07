@@ -1,6 +1,7 @@
 package character
 
 import (
+	"fmt"
 	"slices"
 
 	"github.com/Masterminds/squirrel"
@@ -133,10 +134,19 @@ func (characterController *CharacterController) getCharacterById(ctx *fiber.Ctx)
 		return err
 	}
 
+	// fetch character pool modifiers
+	poolModifiers, err := CalculateCharacterSkillPoolModifiers(*db, characterId)
+	if err != nil {
+		return err
+	}
+
+	fmt.Println(poolModifiers)
+
 	character.CharacterSkills = skills
 	character.CharacterInabilities = inabilities
 	character.CharacterItems = items
 	character.CharacterWornItems = wornItems
+	character.CharacterPoolModifiers = poolModifiers
 
 	// return character to user
 	return ctx.Status(fiber.StatusOK).JSON(character.ToNested())
