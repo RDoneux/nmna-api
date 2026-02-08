@@ -17,8 +17,6 @@ func ConnectDatabase() (*sql.DB, error) {
 		return nil, err
 	}
 
-	fmt.Println("Connecting to database at host: ", connectionString)
-
 	db, error := sql.Open("mysql", connectionString)
 
 	if error != nil {
