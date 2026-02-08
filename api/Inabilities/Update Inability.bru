@@ -11,13 +11,20 @@ put {
 }
 
 params:path {
-  inabilityId: 74a0d998-7992-4f62-86be-8ae8d7c4dde3
+  inabilityId: d7e98cb0-3ffb-481c-9873-72af23deb299
 }
 
 body:json {
   {
     "name": "updated inability name",
-    "description": "udpated inability description"
+    "description": "udpated inability description",
+    "poolModifiers": [
+      {
+        "poolType": "SPEED",
+        "modifierValue": -5000,
+        "edgeValue": 0
+      }
+    ]
   }
 }
 

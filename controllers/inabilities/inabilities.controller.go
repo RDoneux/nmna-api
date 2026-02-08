@@ -69,7 +69,7 @@ func (inabilitiesController *InabilitiesController) createInability(ctx *fiber.C
 	db := inabilitiesController.DB
 	id := uuid.New().String()
 
-	var inability models.Inability
+	var inability models.CreateInabilityDTO
 	err := ctx.BodyParser(&inability)
 	inability.ID = id
 	if err != nil {
@@ -95,7 +95,7 @@ func (inabilitiesController *InabilitiesController) updateInability(ctx *fiber.C
 	db := inabilitiesController.DB
 	inabilityId := ctx.Params("inabilityId")
 
-	var inability models.Inability
+	var inability models.UpdateInabilityDTO
 
 	err := ctx.BodyParser(&inability)
 	if err != nil {

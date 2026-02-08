@@ -4,6 +4,7 @@ import (
 	"github.com/Masterminds/squirrel"
 	"github.com/jmoiron/sqlx"
 	"github.com/rdoneux/nmna-api/models"
+	"github.com/rdoneux/nmna-api/services"
 )
 
 func GetInabilityById(db sqlx.DB, inabilityId string) (models.Inability, error) {
@@ -27,7 +28,7 @@ func GetInabilityById(db sqlx.DB, inabilityId string) (models.Inability, error) 
 
 }
 
-func InsertInability(db sqlx.DB, inability models.Inability) error {
+func InsertInability(db sqlx.DB, inability models.CreateInabilityDTO) error {
 
 	query, args, err := squirrel.
 		Insert("inabilities").
@@ -43,11 +44,19 @@ func InsertInability(db sqlx.DB, inability models.Inability) error {
 		return err
 	}
 
+	// Insert/update pool modifiers if present
+	if inability.PoolModifiers != nil {
+		err = services.InsertPoolModifiers(db, inability.ID, *inability.PoolModifiers)
+		if err != nil {
+			return err
+		}
+	}
+
 	return nil
 
 }
 
-func UpdateInability(db sqlx.DB, inability models.Inability, inabilityId string) error {
+func UpdateInability(db sqlx.DB, inability models.UpdateInabilityDTO, inabilityId string) error {
 
 	query, args, err := squirrel.
 		Update("inabilities").
@@ -62,6 +71,14 @@ func UpdateInability(db sqlx.DB, inability models.Inability, inabilityId string)
 	_, err = db.Exec(query, args...)
 	if err != nil {
 		return err
+	}
+
+	// Insert/update pool modifiers if present
+	if inability.PoolModifiers != nil {
+		err = services.InsertPoolModifiers(db, inabilityId, *inability.PoolModifiers)
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
