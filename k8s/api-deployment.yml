@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: yourusername/numenera:latest
+          image: rdoneux/numenera:latest
           ports:
             - containerPort: 3000
           env:
