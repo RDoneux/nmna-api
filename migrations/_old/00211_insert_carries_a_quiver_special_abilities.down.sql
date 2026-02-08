@@ -1,1 +1,0 @@
-DELETE FROM special_abilities WHERE name = "Carries a Quiver"

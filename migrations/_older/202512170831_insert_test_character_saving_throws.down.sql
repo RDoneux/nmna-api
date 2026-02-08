@@ -1,1 +1,0 @@
-DELETE FROM saving_throws;

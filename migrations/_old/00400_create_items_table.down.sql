@@ -1,9 +1,0 @@
-DROP TABLE IF EXISTS items;
-
-DROP TABLE IF EXISTS cyphers;
-
-DROP TABLE IF EXISTS artifacts;
-
-DROP TABLE IF EXISTS equipment;
-
-DROP TABLE IF EXISTS oddities;
