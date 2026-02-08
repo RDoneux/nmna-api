@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/gofiber/fiber/v2"
@@ -21,9 +20,7 @@ import (
 
 func main() {
 
-	if err := godotenv.Load(); err != nil {
-		fmt.Println("Unable to find .env file to load. Production env?")
-	}
+	godotenv.Load()
 
 	db, err := services.ConnectDatabase()
 	if err != nil {

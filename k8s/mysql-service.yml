@@ -7,6 +7,5 @@ spec:
   ports:
     - port: 3306
       targetPort: 3306
-      nodePort: 32306  # or let Kubernetes assign one
   selector:
     app: nmna-mysql

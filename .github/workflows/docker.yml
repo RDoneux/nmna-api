@@ -30,3 +30,11 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/numenera:latest
 
+      - name: Build and push migrations image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: migrations/dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/numenera-migrations:latest
+
