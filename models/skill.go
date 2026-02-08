@@ -44,6 +44,11 @@ type UpdateSkillDTO struct {
 	PoolModifiers *[]CharacterPoolModifier `json:"poolModifiers,omitempty"`
 }
 
+type CreateSkillDTO struct {
+	Skill
+	PoolModifiers *[]CharacterPoolModifier `json:"poolModifiers,omitempty"`
+}
+
 type Inability struct {
 	ID          string `json:"characterInabilityId" db:"id"`
 	Name        string `json:"name"`

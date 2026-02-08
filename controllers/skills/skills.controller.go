@@ -89,14 +89,14 @@ func (skillsController *SkillsController) createSkill(ctx *fiber.Ctx) error {
 	db := skillsController.DB
 	id := uuid.New().String()
 
-	var skill models.Skill
+	var skill models.CreateSkillDTO
 	err := ctx.BodyParser(&skill)
 	skill.ID = id
 	if err != nil {
 		return err
 	}
 
-	err = InsertSKill(*db, &skill)
+	err = InsertSkill(*db, &skill)
 	if err != nil {
 		return err
 	}
