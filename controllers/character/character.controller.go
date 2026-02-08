@@ -1,7 +1,6 @@
 package character
 
 import (
-	"fmt"
 	"slices"
 
 	"github.com/Masterminds/squirrel"
@@ -140,8 +139,6 @@ func (characterController *CharacterController) getCharacterById(ctx *fiber.Ctx)
 		return err
 	}
 
-	fmt.Println(poolModifiers)
-
 	character.CharacterSkills = skills
 	character.CharacterInabilities = inabilities
 	character.CharacterItems = items
@@ -183,7 +180,6 @@ func (characterController *CharacterController) getCharactersByUserId(ctx *fiber
 
 }
 
-// need to calculate pool modifiers
 func (characterController *CharacterController) addCharacterSkill(ctx *fiber.Ctx) error {
 
 	// get skill id from body
@@ -208,7 +204,6 @@ func (characterController *CharacterController) addCharacterSkill(ctx *fiber.Ctx
 
 }
 
-// need to calculate pool modifiers
 func (characterController *CharacterController) removeCharacterSkill(ctx *fiber.Ctx) error {
 
 	// get props from path
@@ -289,7 +284,6 @@ func (characterController *CharacterController) removeCharacterInability(ctx *fi
 
 }
 
-// need to calculate pool modifiers
 func (characterController *CharacterController) addCharacterItem(ctx *fiber.Ctx) error {
 
 	db := characterController.DB
@@ -314,7 +308,6 @@ func (characterController *CharacterController) addCharacterItem(ctx *fiber.Ctx)
 
 }
 
-// need to calculate pool modifiers
 func (characterController *CharacterController) removeCharacterItem(ctx *fiber.Ctx) error {
 
 	db := characterController.DB
@@ -373,7 +366,6 @@ func (characterController *CharacterController) updateCharacterBackground(ctx *f
 
 }
 
-// need to calculate pool modifiers
 func (characterController *CharacterController) addCharacterWornItem(ctx *fiber.Ctx) error {
 
 	// get character item id, character id & location from params
@@ -424,7 +416,6 @@ func (characterController *CharacterController) addCharacterWornItem(ctx *fiber.
 
 }
 
-// need to calculate pool modifiers
 func (characterController *CharacterController) removeCharacterWornItem(ctx *fiber.Ctx) error {
 
 	db := characterController.DB

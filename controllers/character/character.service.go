@@ -544,28 +544,63 @@ func GetCharacterInformation(db sqlx.DB, characterId string) (models.CharacterIn
 
 func CalculateCharacterSkillPoolModifiers(db sqlx.DB, characterId string) ([]models.CharacterPoolModifier, error) {
 
-	// need to add items, inabilities
-
-	query, args, err := squirrel.
-		Select("s.name AS source", "pool_type", "modifier_value", "edge_value").
-		From("characters c").
-		Join("character_skills cs ON cs.character_id = c.id").
+	skillsQuery := squirrel.
+		Select(
+			"s.name AS source",
+			"pool_type",
+			"modifier_value",
+			"edge_value",
+		).Column(squirrel.Expr("'Skill' AS source_type")).
+		From("character_skills cs").
 		Join("skills s ON cs.skill_id = s.id").
 		Join("pool_modifiers pm ON pm.foreign_key = s.id").
-		Where("c.id = ?", characterId).
-		ToSql()
+		Where("cs.character_id = ?", characterId)
+
+	itemsQuery := squirrel.
+		Select(
+			"i.name AS source",
+			"pool_type",
+			"modifier_value",
+			"edge_value",
+		).Column(squirrel.Expr("'Item' AS source_type")).
+		From("character_items ci").
+		Join("items i ON ci.item_id = i.id").
+		Join("pool_modifiers pm ON pm.foreign_key = i.id").
+		Where("ci.character_id = ?", characterId)
+
+	inabilitiesQuery := squirrel.
+		Select(
+			"ina.name",
+			"pool_type",
+			"modifier_value",
+			"edge_value",
+		).Column(squirrel.Expr("'Inability' AS source_type")).
+		From("character_inabilities cin").
+		Join("inabilities ina ON cin.inability_id = ina.id").
+		Join("pool_modifiers pm ON pm.foreign_key = ina.id").
+		Where("cin.character_id = ?", characterId)
+
+	skillsSql, skillsArgs, err := skillsQuery.ToSql()
 	if err != nil {
 		return nil, err
 	}
+	itemsSql, itemsArgs, err := itemsQuery.ToSql()
+	if err != nil {
+		return nil, err
+	}
+	inabilitiesSql, inabilitiesArgs, err := inabilitiesQuery.ToSql()
+	if err != nil {
+		return nil, err
+	}
+
+	unionSql := skillsSql + " UNION ALL " + itemsSql + " UNION ALL " + inabilitiesSql
+	finalSql := "SELECT * FROM (" + unionSql + ") AS combined"
+	finalArgs := append(append(skillsArgs, itemsArgs...), inabilitiesArgs...)
 
 	var poolModifiers []models.CharacterPoolModifier
-	err = db.Select(&poolModifiers, query, args...)
+	err = db.Select(&poolModifiers, finalSql, finalArgs...)
 	if err != nil {
 		return nil, err
-	}
-
-	for i := range poolModifiers {
-		poolModifiers[i].SourceType = "Skill"
 	}
 
 	return poolModifiers, nil

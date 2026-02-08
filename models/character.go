@@ -62,7 +62,7 @@ type CharacterPool struct {
 
 type CharacterPoolModifier struct {
 	Source        string   `json:"source" db:"source"`
-	SourceType    string   `json:"sourceType"`
+	SourceType    string   `json:"sourceType" db:"source_type"`
 	PoolType      PoolType `json:"poolType" db:"pool_type"`
 	ModifierValue int      `json:"modifierValue" db:"modifier_value"`
 	EdgeValue     int      `json:"edgeValue" db:"edge_value"`
