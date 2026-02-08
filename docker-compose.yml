@@ -6,10 +6,10 @@ services:
     container_name: nmna-mysql
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: nmna
-      MYSQL_USER: nmna_user
-      MYSQL_PASSWORD: nmna_password
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
       - "3306:3306"
     volumes:
@@ -19,6 +19,40 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: nmna-api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      DB_HOST: db
+      APP_ENV: production
+    depends_on:
+      db:
+        condition: service_healthy
+
+  migrate:
+    image: migrate/migrate
+    volumes:
+      - ./migrations:/migrations
+    env_file:
+      - .env
+    entrypoint: [
+      "migrate",
+      "-path", "/migrations",
+      "-database",
+      "mysql://${DB_USER}:${DB_PASSWORD}@tcp(db:${DB_PORT})/${DB_NAME}",
+      "up"
+    ]
+    depends_on:
+      db:
+        condition: service_healthy
 
 volumes:
   db_data:

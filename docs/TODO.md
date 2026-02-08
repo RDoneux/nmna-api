@@ -11,5 +11,5 @@
 - [x] Ability to update shins, experience points and tier
 - [x] Update character put endpoints to get id from url
 - [x] When skills / items are added to the character, need to calculate pool modifiers etc. PLAN THIS! work out exactly what can be modified
-- [ ] When creating skills / items / inabilities, need to add entry to pool modifiers table
+- [x] When creating skills / items / inabilities, need to add entry to pool modifiers table
 

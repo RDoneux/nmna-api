@@ -9,13 +9,13 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/rdoneux/nmna-api/services"
 
-	"github.com/rdoneux/nmna-api/controllers/utils"
 	"github.com/rdoneux/nmna-api/controllers/authorisation"
 	"github.com/rdoneux/nmna-api/controllers/character"
 	"github.com/rdoneux/nmna-api/controllers/inabilities"
 	"github.com/rdoneux/nmna-api/controllers/items"
 	"github.com/rdoneux/nmna-api/controllers/skills"
 	"github.com/rdoneux/nmna-api/controllers/user"
+	"github.com/rdoneux/nmna-api/controllers/utils"
 )
 
 func main() {
@@ -30,9 +30,11 @@ func main() {
 	}
 	database := sqlx.NewDb(db, "mysql")
 
-	err = services.RunMigrations()
-	if err != nil {
-		panic(err)
+	if os.Getenv("APP_ENV") == "development" {
+		err = services.RunMigrations()
+		if err != nil {
+			panic(err)
+		}
 	}
 
 	app := fiber.New()
@@ -63,7 +65,7 @@ func main() {
 	characterController := &character.CharacterController{
 		DB: database,
 	}
-	characterController.RegisterRoutes(app)	
+	characterController.RegisterRoutes(app)
 
 	itemController := &items.ItemsController{
 		DB: database,
@@ -75,7 +77,7 @@ func main() {
 	}
 	skillController.RegisterRoutes(app)
 
-	inabilityController := &inabilities.InabilitiesController {
+	inabilityController := &inabilities.InabilitiesController{
 		DB: database,
 	}
 	inabilityController.RegisterRoutes(app)
