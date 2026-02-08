@@ -23,6 +23,12 @@ func main() {
 
 	if err := godotenv.Load(); err != nil {
 		fmt.Println("Unable to find .env file to load. Production env?")
+
+		fmt.Println(os.Getenv("DB_HOST"))
+		fmt.Println(os.Getenv("DB_USER"))
+		fmt.Println(os.Getenv("DB_PASSWORD"))
+		fmt.Println(os.Getenv("DB_NAME"))
+		fmt.Println(os.Getenv("DB_PORT"))
 		// panic("Error loading .env file")
 	}
 
