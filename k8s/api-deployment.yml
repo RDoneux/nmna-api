@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: numenera-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: numenera-api
+  template:
+    metadata:
+      labels:
+        app: numenera-api
+    spec:
+      containers:
+        - name: api
+          image: yourusername/numenera:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DB_HOST
+              value: "nmna-mysql"
+            - name: APP_ENV
+              value: "production"
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql
+                  key: "MYSQL_ROOT_PASSWORD"
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: mysql
+                  key: "MYSQL_DATABASE"
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysql
+                  key: "MYSQL_USER"
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: "mysql"
+                  key: "MYSQL_ROOT_PASSWORD"
