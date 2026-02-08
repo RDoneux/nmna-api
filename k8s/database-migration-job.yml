@@ -7,18 +7,11 @@ spec:
     spec:
       containers:
         - name: migrate
-          image: rdoneux/migrate
+          image: rdoneux/numenera-migrations
           command: [
             "migrate",
             "-path", "/migrations",
             "-database", "mysql://${DB_USER}:${DB_PASSWORD}@tcp(db:${DB_PORT})/${DB_NAME}",
             "up"
           ]
-          volumeMounts:
-            - name: migrations
-              mountPath: /migrations
-      volumes:
-        - name: migrations
-          hostPath:
-            path: /path/to/your/migrations
       restartPolicy: Never
