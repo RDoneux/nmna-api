@@ -47,6 +47,11 @@ spec:
                 secretKeyRef:
                   name: "mysql"
                   key: "MYSQL_ROOT_PASSWORD"
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: "mysql"
+                  key: "MYSQL_DATABASE"
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
