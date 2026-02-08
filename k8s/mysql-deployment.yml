@@ -16,6 +16,11 @@ spec:
         - name: mysql
           image: mysql:latest
           env:
+            - name: DB_PORT
+              valueFrom:
+                secreteKeyRef:
+                  name: mysql
+                  key: "MYSQL_PORT"
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
