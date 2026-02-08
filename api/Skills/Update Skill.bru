@@ -11,18 +11,28 @@ put {
 }
 
 params:path {
-  skillId: b57a89a8-8f48-40d2-8561-b3877953da01
+  skillId: b79b1b8d-04d2-11f1-a980-de609b70bb75
 }
 
 body:json {
   {
-    "name": "custom skill updated",
-    "category": "MIGHT",
+    "name": "Skill with Defence",
+    "category": "CUSTOM",
     "description": "custom skill description",
-    "attackModifier": 1,
-    "armourModifier": 2,
     "cost": 3,
-    "type": "FIGHTING_MOVE"
+    "type": "FIGHTING_MOVE",
+    "poolModifiers": [
+      {
+        "poolType": "ARMOUR",
+        "modifierValue": 2,
+        "edgeValue": 0
+      },
+      {
+        "poolType": "MIGHT",
+        "modifierValue": -1,
+        "edgeValue": 0
+      }
+    ]
   }
 }
 

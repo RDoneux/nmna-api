@@ -48,7 +48,7 @@ func InsertSKill(db sqlx.DB, skill *models.Skill) error {
 
 }
 
-func UpdateSkillById(db sqlx.DB, skill *models.Skill, skillId string) error {
+func UpdateSkillById(db sqlx.DB, skill *models.UpdateSkillDTO, skillId string) error {
 
 	query, args, err := squirrel.
 		Update("skills").
@@ -66,6 +66,31 @@ func UpdateSkillById(db sqlx.DB, skill *models.Skill, skillId string) error {
 	_, err = db.Exec(query, args...)
 	if err != nil {
 		return err
+	}
+
+	// Insert/update pool modifiers if present
+	if skill.PoolModifiers != nil {
+
+		// Remove existing pool modifiers to avoid duplicates
+		_, err = db.Exec("DELETE FROM pool_modifiers WHERE foreign_key = ?", skillId)
+		if err != nil {
+			return err
+		}
+
+		for _, modifier := range *skill.PoolModifiers {
+			query, args, err = squirrel.
+				Insert("pool_modifiers").
+				Columns("pool_type", "modifier_value", "edge_value", "foreign_key").
+				Values(modifier.PoolType, modifier.ModifierValue, modifier.EdgeValue, skillId).
+				ToSql()
+			if err != nil {
+				return err
+			}
+			_, err = db.Exec(query, args...)
+			if err != nil {
+				return err
+			}
+		}
 	}
 
 	return nil

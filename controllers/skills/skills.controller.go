@@ -115,7 +115,7 @@ func (skillsController *SkillsController) updateSkill(ctx *fiber.Ctx) error {
 	db := skillsController.DB
 	id := ctx.Params("skillId")
 
-	var skill models.Skill
+	var skill models.UpdateSkillDTO
 	err := ctx.BodyParser(&skill)
 	if err != nil {
 		return err

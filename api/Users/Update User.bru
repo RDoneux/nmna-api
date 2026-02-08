@@ -5,9 +5,13 @@ meta {
 }
 
 put {
-  url: {{host}}/protected/users/edb1cf7b-f49c-11f0-944c-be35d3ff38a0
+  url: {{host}}/protected/users/:userId
   body: json
   auth: inherit
+}
+
+params:path {
+  userId: bd4e87d4-04d2-11f1-a980-de609b70bb75
 }
 
 body:json {

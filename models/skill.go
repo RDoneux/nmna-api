@@ -27,16 +27,21 @@ const (
 )
 
 type ListSkill struct {
-	ID string        `json:"id" db:"id"`
-	Name             string        `json:"name"`
-	Category         SkillCategory `json:"category"`
-	Description      string        `json:"description"`
-	Cost             int16         `json:"cost"`
-	Type             SkillType     `json:"type"`
+	ID          string        `json:"id" db:"id"`
+	Name        string        `json:"name"`
+	Category    SkillCategory `json:"category"`
+	Description string        `json:"description"`
+	Cost        int16         `json:"cost"`
+	Type        SkillType     `json:"type"`
 }
 
 type Skill struct {
 	ListSkill
+}
+
+type UpdateSkillDTO struct {
+	Skill
+	PoolModifiers *[]CharacterPoolModifier `json:"poolModifiers,omitempty"`
 }
 
 type Inability struct {
