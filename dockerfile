@@ -18,7 +18,6 @@ FROM alpine:latest
 WORKDIR /root/
 
 COPY --from=builder /app/app .
-COPY .env ./
 
 EXPOSE 3000
 
