@@ -10,7 +10,7 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/rdoneux/nmna-api/services"
+	"github.com/rdoneux/nmna-api/cmd/services"
 )
 
 type AuthorisationController struct {

@@ -8,8 +8,8 @@ import (
 	"github.com/Masterminds/squirrel"
 	"github.com/gofiber/fiber/v2"
 	"github.com/jmoiron/sqlx"
-	"github.com/rdoneux/nmna-api/models"
-	"github.com/rdoneux/nmna-api/services"
+	"github.com/rdoneux/nmna-api/cmd/models"
+	"github.com/rdoneux/nmna-api/cmd/services"
 )
 
 type ItemsController struct {

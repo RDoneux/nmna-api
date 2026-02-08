@@ -7,7 +7,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
 	"github.com/jmoiron/sqlx"
-	"github.com/rdoneux/nmna-api/models"
+	"github.com/rdoneux/nmna-api/cmd/models"
 )
 
 type CharacterController struct {

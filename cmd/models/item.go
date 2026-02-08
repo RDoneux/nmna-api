@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/rdoneux/nmna-api/types"
+	"github.com/rdoneux/nmna-api/cmd/types"
 )
 
 type ItemType string

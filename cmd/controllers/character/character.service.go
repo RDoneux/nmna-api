@@ -3,7 +3,7 @@ package character
 import (
 	"github.com/Masterminds/squirrel"
 	"github.com/jmoiron/sqlx"
-	"github.com/rdoneux/nmna-api/models"
+	"github.com/rdoneux/nmna-api/cmd/models"
 )
 
 func GetCharacterById(db sqlx.DB, characterId string) (models.Character, error) {

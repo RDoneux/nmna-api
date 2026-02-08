@@ -4,8 +4,8 @@ import (
 	"github.com/Masterminds/squirrel"
 	"github.com/jmoiron/sqlx"
 
-	"github.com/rdoneux/nmna-api/models"
-	"github.com/rdoneux/nmna-api/services"
+	"github.com/rdoneux/nmna-api/cmd/models"
+	"github.com/rdoneux/nmna-api/cmd/services"
 )
 
 func GetSkillById(db sqlx.DB, skillId string) (models.Skill, error) {

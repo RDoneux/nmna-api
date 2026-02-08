@@ -3,11 +3,11 @@ package services
 import (
 	"database/sql"
 	"fmt"
-	"github.com/rdoneux/nmna-api/config"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gofiber/fiber/v2"
 	
-	"github.com/rdoneux/nmna-api/errors"
+	"github.com/rdoneux/nmna-api/cmd/config"
+	"github.com/rdoneux/nmna-api/cmd/errors"
 )
 
 func ConnectDatabase() (*sql.DB, error) {

@@ -3,7 +3,8 @@ package services
 import (
 	"github.com/Masterminds/squirrel"
 	"github.com/jmoiron/sqlx"
-	"github.com/rdoneux/nmna-api/models"
+	
+	"github.com/rdoneux/nmna-api/cmd/models"
 )
 
 func InsertPoolModifiers(db sqlx.DB, foreignKey string, poolModifiers []models.CharacterPoolModifier) error {

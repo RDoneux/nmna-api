@@ -6,7 +6,8 @@ import (
 
 	"github.com/Masterminds/squirrel"
 	"github.com/jmoiron/sqlx"
-	"github.com/rdoneux/nmna-api/models"
+
+	"github.com/rdoneux/nmna-api/cmd/models"
 )
 
 func GetUserByUsername(db sqlx.DB, username string) (models.PublicUser, error) {

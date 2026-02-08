@@ -7,15 +7,15 @@ import (
 	"github.com/gofiber/jwt/v3"
 	"github.com/jmoiron/sqlx"
 	"github.com/joho/godotenv"
-	"github.com/rdoneux/nmna-api/services"
 
-	"github.com/rdoneux/nmna-api/controllers/authorisation"
-	"github.com/rdoneux/nmna-api/controllers/character"
-	"github.com/rdoneux/nmna-api/controllers/inabilities"
-	"github.com/rdoneux/nmna-api/controllers/items"
-	"github.com/rdoneux/nmna-api/controllers/skills"
-	"github.com/rdoneux/nmna-api/controllers/user"
-	"github.com/rdoneux/nmna-api/controllers/utils"
+	"github.com/rdoneux/nmna-api/cmd/services"
+	"github.com/rdoneux/nmna-api/cmd/controllers/authorisation"
+	"github.com/rdoneux/nmna-api/cmd/controllers/character"
+	"github.com/rdoneux/nmna-api/cmd/controllers/inabilities"
+	"github.com/rdoneux/nmna-api/cmd/controllers/items"
+	"github.com/rdoneux/nmna-api/cmd/controllers/skills"
+	"github.com/rdoneux/nmna-api/cmd/controllers/user"
+	"github.com/rdoneux/nmna-api/cmd/controllers/utils"
 )
 
 func main() {

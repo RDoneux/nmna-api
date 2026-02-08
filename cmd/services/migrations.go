@@ -10,7 +10,8 @@ import (
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/mysql"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
-	"github.com/rdoneux/nmna-api/config"
+
+	"github.com/rdoneux/nmna-api/cmd/config"
 )
 
 const ROOT_MIGRATIONS_PATH = "migrations"
