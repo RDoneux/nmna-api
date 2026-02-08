@@ -18,7 +18,7 @@ spec:
           env:
             - name: DB_PORT
               valueFrom:
-                secreteKeyRef:
+                secretKeyRef:
                   name: mysql
                   key: "MYSQL_PORT"
             - name: MYSQL_ROOT_PASSWORD
