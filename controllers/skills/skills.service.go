@@ -5,6 +5,7 @@ import (
 	"github.com/jmoiron/sqlx"
 
 	"github.com/rdoneux/nmna-api/models"
+	"github.com/rdoneux/nmna-api/services"
 )
 
 func GetSkillById(db sqlx.DB, skillId string) (models.Skill, error) {
@@ -46,7 +47,10 @@ func InsertSkill(db sqlx.DB, skill *models.CreateSkillDTO) error {
 
 	// Insert/update pool modifiers if present
 	if skill.PoolModifiers != nil {
-		InsertPoolModifiers(db, skill.ID, *skill.PoolModifiers)
+		err = services.InsertPoolModifiers(db, skill.ID, *skill.PoolModifiers)
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -75,7 +79,10 @@ func UpdateSkillById(db sqlx.DB, skill *models.UpdateSkillDTO, skillId string) e
 
 	// Insert/update pool modifiers if present
 	if skill.PoolModifiers != nil {
-		InsertPoolModifiers(db, skillId, *skill.PoolModifiers)
+		err = services.InsertPoolModifiers(db, skillId, *skill.PoolModifiers)
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -95,33 +102,6 @@ func DeleteSkillById(db sqlx.DB, skillId string) error {
 	_, err = db.Exec(query, args...)
 	if err != nil {
 		return err
-	}
-
-	return nil
-
-}
-
-func InsertPoolModifiers(db sqlx.DB, skillId string, poolModifiers []models.CharacterPoolModifier) error {
-
-	// Remove existing pool modifiers to avoid duplicates
-	_, err := db.Exec("DELETE FROM pool_modifiers WHERE foreign_key = ?", skillId)
-	if err != nil {
-		return err
-	}
-
-	for _, modifier := range poolModifiers {
-		query, args, err := squirrel.
-			Insert("pool_modifiers").
-			Columns("pool_type", "modifier_value", "edge_value", "foreign_key").
-			Values(modifier.PoolType, modifier.ModifierValue, modifier.EdgeValue, skillId).
-			ToSql()
-		if err != nil {
-			return err
-		}
-		_, err = db.Exec(query, args...)
-		if err != nil {
-			return err
-		}
 	}
 
 	return nil

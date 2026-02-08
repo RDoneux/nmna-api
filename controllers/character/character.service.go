@@ -181,7 +181,7 @@ func GetCharacterItems(db sqlx.DB, characterId string) ([]models.Item, error) {
 			"JSON_ARRAYAGG(iel.equip_location) AS equip_locations").
 		From("character_items ci").
 		Join("items i ON ci.item_id = i.id").
-		Join("item_equip_locations iel ON iel.item_id = i.id").
+		LeftJoin("item_equip_locations iel ON iel.item_id = i.id").
 		Where("ci.character_id = ?", characterId).
 		GroupBy("ci.id",
 			"i.name",

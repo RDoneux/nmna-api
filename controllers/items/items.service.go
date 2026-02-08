@@ -89,7 +89,7 @@ func GetItemTypes(db sqlx.DB) ([]string, error) {
 
 }
 
-func CreateItem(db sqlx.DB, item models.Item) error {
+func CreateItem(db sqlx.DB, item models.CreateItemDTO) error {
 
 	columns := []string{"name", "description", "weight", "price", "item_type"}
 	values := []any{item.Name, item.Description, item.Weight, item.Price, item.ItemType}
@@ -109,11 +109,23 @@ func CreateItem(db sqlx.DB, item models.Item) error {
 	}
 
 	_, err = db.Exec(query, args...)
-	return err
+	if err != nil {
+		return err
+	}
+
+	// Insert/update pool modifiers if present
+	if item.PoolModifiers != nil {
+		err = services.InsertPoolModifiers(db, item.ID, *item.PoolModifiers)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 
 }
 
-func UpdateRootItem(db sqlx.DB, item models.Item) error {
+func UpdateRootItem(db sqlx.DB, item models.UpdateItemDto) error {
 
 	query, args, err := squirrel.
 		Update("items").
@@ -126,7 +138,18 @@ func UpdateRootItem(db sqlx.DB, item models.Item) error {
 		return err
 	}
 
-	db.Exec(query, args...)
+	_, err = db.Exec(query, args...)
+	if err != nil {
+		return err
+	}
+
+	// Insert/update pool modifiers if present
+	if item.PoolModifiers != nil {
+		err = services.InsertPoolModifiers(db, item.ID, *item.PoolModifiers)
+		if err != nil {
+			return err
+		}
+	}
 
 	return nil
 
@@ -338,13 +361,13 @@ func convertMapBytesToString(m map[string]any) map[string]any {
 }
 
 func convertNumericStringsToFloat(m map[string]any, keys ...string) {
-    for _, k := range keys {
-        if v, ok := m[k]; ok {
-            if s, ok := v.(string); ok {
-                if f, err := strconv.ParseFloat(s, 64); err == nil {
-                    m[k] = f
-                }
-            }
-        }
-    }
+	for _, k := range keys {
+		if v, ok := m[k]; ok {
+			if s, ok := v.(string); ok {
+				if f, err := strconv.ParseFloat(s, 64); err == nil {
+					m[k] = f
+				}
+			}
+		}
+	}
 }

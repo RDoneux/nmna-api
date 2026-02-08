@@ -48,7 +48,7 @@ const (
 
 const (
 	LIGHT          WeightType = "Light"
-	LIGHT_SPECIAL WeightType = "Light Special"
+	LIGHT_SPECIAL  WeightType = "Light Special"
 	MEDIUM         WeightType = "Medium"
 	MEDIUM_SPECIAL WeightType = "Medium Special"
 	HEAVY          WeightType = "Heavy"
@@ -82,6 +82,16 @@ type Item struct {
 	EquippedAt     *EquipLocation    `json:"equippedAt" db:"equipped_at"`
 	Quantity       uint16            `json:"quantity" db:"quantity"`
 	EquipLocations types.StringArray `json:"equipLocations" db:"equip_locations"`
+}
+
+type CreateItemDTO struct {
+	Item
+	PoolModifiers *[]CharacterPoolModifier `json:"poolModifiers,omitempty"`
+}
+
+type UpdateItemDto struct {
+	Item
+	PoolModifiers *[]CharacterPoolModifier `json:"poolModifiers,omitempty"`
 }
 
 type Artifact struct {
