@@ -14,4 +14,32 @@ spec:
             "-database", "mysql://${DB_USER}:${DB_PASSWORD}@tcp(db:${DB_PORT})/${DB_NAME}",
             "up"
           ]
+          env:
+            - name: DB_HOST
+              value: "nmna-mysql"
+            - name: DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: mysql
+                  key: "MYSQL_PORT"
+            - name: DB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: mysql
+                  key: "MYSQL_DATABASE"
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysql
+                  key: "MYSQL_USER"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: "mysql"
+                  key: "MYSQL_ROOT_PASSWORD"
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: "mysql"
+                  key: "MYSQL_DATABASE"
       restartPolicy: Never
