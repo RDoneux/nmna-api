@@ -8,12 +8,9 @@ spec:
       containers:
         - name: migrate
           image: rdoneux/numenera-migrations
-          command: [
-            "migrate",
-            "-path", "/migrations",
-            "-database", "mysql://${DB_USER}:${DB_PASSWORD}@tcp(${DB_HOST}:${DB_PORT})/${DB_NAME}",
-            "up"
-          ]
+          command: ["/bin/sh", "-c"]
+          args:
+            - migrate -path /migrations -database "mysql://${DB_USER}:${DB_PASSWORD}@tcp(${DB_HOST}:${DB_PORT})/${DB_NAME}" up
           env:
             - name: DB_HOST
               value: "nmna-mysql"
