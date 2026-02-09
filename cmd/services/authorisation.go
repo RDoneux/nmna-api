@@ -103,8 +103,8 @@ func SetHTTPOnlyCookies(ctx *fiber.Ctx, accessToken, refreshToken string) {
 		Name:     "access_token",
 		Value:    accessToken,
 		HTTPOnly: true,
-		Secure:   true,
-		SameSite: "Strict",
+		Secure:   false,
+		SameSite: "Lax",
 		Path:     "/",
 		Expires:  time.Now().Add(time.Minute * time.Duration(accessTokenExpMinutes)),
 	})
@@ -113,8 +113,8 @@ func SetHTTPOnlyCookies(ctx *fiber.Ctx, accessToken, refreshToken string) {
 		Name:     "refresh_token",
 		Value:    refreshToken,
 		HTTPOnly: true,
-		Secure:   true,
-		SameSite: "Strict",
+		Secure:   false,
+		SameSite: "Lax",
 		Path:     "/",
 		Expires:  time.Now().Add(time.Hour * time.Duration(refreshTokenExpHours)),
 	})

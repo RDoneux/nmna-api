@@ -40,6 +40,7 @@ func main() {
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: "http://localhost:5173",
 		AllowCredentials: true,
+		
 	}))
 
 	var jwtSecret = []byte(os.Getenv("JWT_SECRET"))
