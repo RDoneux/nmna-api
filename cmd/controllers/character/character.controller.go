@@ -38,20 +38,27 @@ func (characterController *CharacterController) RegisterRoutes(app *fiber.App) {
 func (characterController *CharacterController) createCharacter(ctx *fiber.Ctx) error {
 
 	// get user id & character name from body
-	var userDetails struct {
-		Name   string `json:"name"`
-		UserId string `json:"userId"`
+	var characterDetails struct {
+		Name       string `json:"name"`
+		Descriptor string `json:"descriptor"`
+		Type       string `json:"type"`
+		Focus      string `json:"focus"`
 	}
-	if err := ctx.BodyParser(&userDetails); err != nil {
+	if err := ctx.BodyParser(&characterDetails); err != nil {
 		return ctx.Status(fiber.StatusBadRequest).SendString("Incorrect Body")
+	}
+
+	userId, err := services.GetUserIdFromClaims(ctx)
+	if err != nil {
+		return err
 	}
 
 	// insert character into db
 	newId := uuid.New().String()
 	query, args, err := squirrel.
 		Insert("characters").
-		Columns("id", "name", "user_id").
-		Values(newId, userDetails.Name, userDetails.UserId).
+		Columns("id", "name", "user_id", "character_type_id", "character_descriptor_id", "character_focus_id").
+		Values(newId, characterDetails.Name, userId, characterDetails.Type, characterDetails.Descriptor, characterDetails.Focus).
 		ToSql()
 	if err != nil {
 		return err
@@ -134,6 +141,24 @@ func (characterController *CharacterController) getCharacterById(ctx *fiber.Ctx)
 		return err
 	}
 
+	// fetch character descriptor
+	descriptor, err := GetCharacterDescriptor(*db, characterId)
+	if err != nil {
+		return err
+	}
+
+	// fetch character type
+	characterType, err := GetCharacterType(*db, characterId)
+	if err != nil {
+		return err
+	}
+
+	// fetch character focus
+	focus, err := GetCharacterFocus(*db, characterId)
+	if err != nil {
+		return err
+	}
+
 	// fetch character pool modifiers
 	poolModifiers, err := CalculateCharacterSkillPoolModifiers(*db, characterId)
 	if err != nil {
@@ -144,6 +169,9 @@ func (characterController *CharacterController) getCharacterById(ctx *fiber.Ctx)
 	character.CharacterInabilities = inabilities
 	character.CharacterItems = items
 	character.CharacterWornItems = wornItems
+	character.CharacterDescriptor = descriptor
+	character.CharacterType = characterType
+	character.CharacterFocus = focus
 	character.CharacterPoolModifiers = poolModifiers
 
 	// return character to user
@@ -159,26 +187,29 @@ func (characterController *CharacterController) getCharactersByUserId(ctx *fiber
 
 	// query all characters associated with the user
 	query, args, err := squirrel.
-		Select("characters.id", "characters.name", "characters.shins", "characters.experience_points", "characters.tier", "characters.user_id").
+		Select("c.id", "c.name", "c.shins", "c.experience_points", "c.tier", "cd.name AS descriptor", "cf.name AS focus", "ct.name AS type").
 		From("users").
-		Join("characters ON users.id = characters.user_id").
+		Join("characters c ON users.id = c.user_id").
+		Join("character_descriptors cd ON c.character_descriptor_id = cd.id").
+		Join("character_foci cf ON c.character_focus_id = cf.id").
+		Join("character_types ct ON c.character_type_id = ct.id").
 		Where("users.id = ?", userId).
 		ToSql()
 	if err != nil {
 		return err
 	}
 
-	rows, err := characterController.DB.Query(query, args...)
+	rows, err := characterController.DB.Queryx(query, args...)
 	if err != nil {
 		return err
 	}
 	var characters []any = make([]any, 0)
 	for rows.Next() {
-		var character models.Character
-		if err := rows.Scan(&character.ID, &character.Name, &character.Shins, &character.ExperiencePoints, &character.Tier, &character.UserId); err != nil {
+		var character models.ListCharacter
+		if err := rows.StructScan(&character); err != nil {
 			return err
 		}
-		characters = append(characters, character.ToList())
+		characters = append(characters, character)
 	}
 
 	// return characters to user

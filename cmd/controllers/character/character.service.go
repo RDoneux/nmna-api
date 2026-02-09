@@ -606,3 +606,68 @@ func CalculateCharacterSkillPoolModifiers(db sqlx.DB, characterId string) ([]mod
 	return poolModifiers, nil
 
 }
+
+func GetCharacterDescriptor(db sqlx.DB, characterId string) (models.CharacterDescriptor, error) {
+
+	query, args, err := squirrel.
+		Select("cd.name", "description").
+		From("characters c").
+		Join("character_descriptors cd ON c.character_descriptor_id = cd.id").
+		Where("c.id = ?", characterId).
+		ToSql()
+	if err != nil {
+		return models.CharacterDescriptor{}, nil
+	}
+
+	var characterDescriptor models.CharacterDescriptor
+	err = db.Get(&characterDescriptor, query, args...)
+	if err != nil {
+		return models.CharacterDescriptor{}, nil
+	}
+
+	return characterDescriptor, nil
+
+}
+
+func GetCharacterType(db sqlx.DB, characterId string) (models.CharacterType, error) {
+
+	query, args, err := squirrel.
+		Select("ct.name, description").
+		From("characters c").
+		Join("character_types ct ON c.character_type_id = ct.id").
+		Where("c.id = ?", characterId).
+		ToSql()
+	if err != nil {
+		return models.CharacterType{}, err
+	}
+
+	var characterType models.CharacterType
+	err = db.Get(&characterType, query, args...)
+	if err != nil {
+		return models.CharacterType{}, err
+	}
+
+	return characterType, err
+
+}
+
+func GetCharacterFocus(db sqlx.DB, characterId string) (models.CharacterFocus, error) {
+
+	query, args, err := squirrel.
+		Select("cf.name", "description", "connection").
+		From("characters c").
+		Join("character_foci cf ON c.character_focus_id = cf.id").
+		Where("c.id = ?", characterId).
+		ToSql()
+	if err != nil {
+		return models.CharacterFocus{}, err
+	}
+
+	var characterFocus models.CharacterFocus
+	err = db.Get(&characterFocus, query, args...)
+	if err != nil {
+		return models.CharacterFocus{}, err
+	}
+
+	return characterFocus, nil
+}

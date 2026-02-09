@@ -1,14 +1,14 @@
 package models
 
-type CharacterType string
+// type CharacterType string
 type PoolType string
 
-const (
-	DESCRIPTOR CharacterType = "Descriptor"
-	FOCUS      CharacterType = "Focus"
-	TYPE       CharacterType = "Type"
-	CUSTOM     CharacterType = "Custom"
-)
+// const (
+// 	DESCRIPTOR CharacterType = "Descriptor"
+// 	FOCUS      CharacterType = "Focus"
+// 	TYPE       CharacterType = "Type"
+// 	CUSTOM     CharacterType = "Custom"
+// )
 
 const (
 	MIGHT_POOL_TYPE     PoolType = "MIGHT"
@@ -27,8 +27,27 @@ type Character struct {
 	CharacterItems         []Item                  `json:"items"`
 	CharacterWornItems     []Item                  `json:"wornItems"`
 	CharacterPoolModifiers []CharacterPoolModifier `json:"characterPoolModifiers"`
+	CharacterDescriptor    CharacterDescriptor     `json:"characterDescriptor"`
+	CharacterType          CharacterType           `json:"characterType"`
+	CharacterFocus         CharacterFocus          `json:"characterFocus"`
 	CharacterPool
 	CharacterBackground
+}
+
+type CharacterDescriptor struct {
+	Name        string `json:"name" db:"name"`
+	Description string `json:"description" db:"description"`
+}
+
+type CharacterType struct {
+	Name        string `json:"name" db:"name"`
+	Description string `json:"description" db:"description"`
+}
+
+type CharacterFocus struct {
+	Name        string `json:"name" db:"name"`
+	Description string `json:"description" db:"description"`
+	Connection  string `json:"connection" db:"connection"`
 }
 
 type CharacterInformation struct {
@@ -74,15 +93,26 @@ type CharacterBackground struct {
 }
 
 type CharacterInabilities struct {
-	CharacterId string        `json:"inabilitiesCharacterId" db:"character_id"`
-	SkillID     string        `json:"skillId" db:"skill_id"`
-	Source      CharacterType `json:"source"`
+	CharacterId string `json:"inabilitiesCharacterId" db:"character_id"`
+	SkillID     string `json:"skillId" db:"skill_id"`
+	// Source      CharacterType `json:"source"`
 }
 
 type CharacterWornItem struct {
 	CharacterId     string `json:"wornItemCharacterId" db:"character_id"`
 	CharacterItemId string `json:"characterItemId" db:"character_item_id"`
 	EquipLocation   string `json:"equipLocation" db:"location"`
+}
+
+type ListCharacter struct {
+	CharacterId      string `json:"id" db:"id"`
+	Name             string `json:"name"`
+	Shins            int32  `json:"shins"`
+	ExperiencePoints uint32 `json:"experiencePoints" db:"experience_points"`
+	Tier             uint8  `json:"tier"`
+	Descriptor       string `json:"descriptor" db:"descriptor"`
+	Type             string `json:"type" db:"type"`
+	Focus            string `json:"focus" db:"focus"`
 }
 
 func (character *Character) ToNested() map[string]any {
@@ -100,6 +130,9 @@ func (character *Character) ToNested() map[string]any {
 		"characterInabilities":   character.CharacterInabilities,
 		"characterItems":         character.CharacterItems,
 		"characterWornItems":     character.CharacterWornItems,
+		"characterDescriptor":    character.CharacterDescriptor,
+		"characterType":          character.CharacterType,
+		"characterFocus":         character.CharacterFocus,
 	}
 }
 
