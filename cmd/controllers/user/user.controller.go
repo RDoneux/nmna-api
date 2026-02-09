@@ -20,7 +20,7 @@ type UsersController struct {
 func (usersController *UsersController) RegisterRoutes(app *fiber.App) {
 
 	app.Get("/protected/users", usersController.getUsers)
-	app.Get("/protected/user/:id", usersController.getUserById)
+	app.Get("/protected/user", usersController.getUserById)
 	app.Get("/protected/user", usersController.getUserByUsername)
 	app.Post("/users", usersController.createUser)
 	app.Put("/protected/users/:id", usersController.updateUser)
@@ -59,8 +59,11 @@ func (usersController *UsersController) getUsers(ctx *fiber.Ctx) error {
 
 func (usersController *UsersController) getUserById(ctx *fiber.Ctx) error {
 
-	// get id from path param
-	userId := ctx.Params("id")
+	// get id from claims
+	userId, err := services.GetUserIdFromClaims(ctx)
+	if err != nil {
+		return err
+	}
 
 	// get user from db
 	query, args, err := squirrel.

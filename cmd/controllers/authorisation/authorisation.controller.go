@@ -2,12 +2,12 @@ package authorisation
 
 import (
 	"crypto/sha256"
-	"github.com/jmoiron/sqlx"
 	"os"
 
+	"github.com/jmoiron/sqlx"
 	"github.com/Masterminds/squirrel"
 	"github.com/gofiber/fiber/v2"
-	"github.com/golang-jwt/jwt/v5"
+	"github.com/golang-jwt/jwt/v4"
 	"golang.org/x/crypto/bcrypt"
 
 	"github.com/rdoneux/nmna-api/cmd/services"
@@ -57,12 +57,14 @@ func (securityController *AuthorisationController) refreshToken(ctx *fiber.Ctx) 
 
 	// get the user & valid refresh token from the database
 	query, args, err := squirrel.
-		Select("username", "refresh_token_hash").
+		Select("id", "username", "refresh_token_hash").
 		From("users").Where("username = ?", username).
 		ToSql()
+
+	var dbId string
 	var dbUsername string
 	var dbRefreshTokenHash string
-	getUserError := securityController.DB.QueryRow(query, args...).Scan(&dbUsername, &dbRefreshTokenHash)
+	getUserError := securityController.DB.QueryRow(query, args...).Scan(&dbId, &dbUsername, &dbRefreshTokenHash)
 	if getUserError != nil {
 		return fiber.ErrForbidden
 	}
@@ -74,17 +76,18 @@ func (securityController *AuthorisationController) refreshToken(ctx *fiber.Ctx) 
 	}
 
 	// generate new tokens for that user
-	accessToken, refreshToken, err := services.GenerateJWT(username)
+	accessToken, refreshToken, err := services.GenerateJWT(dbId)
 	if err != nil {
 		return err
 	}
 
 	services.UpdateRefreshTokenHashForUser(refreshToken, dbUsername, securityController.DB)
 
+	services.SetHTTPOnlyCookies(ctx, accessToken, refreshToken)
+
 	// return access tokens to the user
-	return ctx.Status(200).JSON(fiber.Map{
-		"accessToken":  accessToken,
-		"refreshToken": refreshToken,
+	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
+		"userId": dbId,
 	})
 }
 
@@ -98,7 +101,7 @@ func (securityController *AuthorisationController) signIn(ctx *fiber.Ctx) error 
 
 	// find matching user in db
 	query, args, err := squirrel.
-		Select("username", "password_hash").
+		Select("id", "username", "password_hash").
 		From("users").
 		Where("username = ?", username).
 		ToSql()
@@ -106,9 +109,10 @@ func (securityController *AuthorisationController) signIn(ctx *fiber.Ctx) error 
 		return err
 	}
 
+	var dbId string
 	var dbUsername string
 	var dbPasswordHash string
-	getUserError := securityController.DB.QueryRow(query, args...).Scan(&dbUsername, &dbPasswordHash)
+	getUserError := securityController.DB.QueryRow(query, args...).Scan(&dbId, &dbUsername, &dbPasswordHash)
 	if getUserError != nil {
 		return getUserError
 	}
@@ -122,7 +126,7 @@ func (securityController *AuthorisationController) signIn(ctx *fiber.Ctx) error 
 	}
 
 	// generate tokens
-	accessToken, refreshToken, err := services.GenerateJWT(dbUsername)
+	accessToken, refreshToken, err := services.GenerateJWT(dbId)
 	if err != nil {
 		return err
 	}
@@ -130,10 +134,10 @@ func (securityController *AuthorisationController) signIn(ctx *fiber.Ctx) error 
 	// update refresh token hash
 	services.UpdateRefreshTokenHashForUser(refreshToken, dbUsername, securityController.DB)
 
+	// set the cookies required
+	services.SetHTTPOnlyCookies(ctx, accessToken, refreshToken)
+
 	// return tokens to user
-	return ctx.Status(200).JSON(fiber.Map{
-		"accessToken":  accessToken,
-		"refreshToken": refreshToken,
-	})
+	return ctx.SendStatus(fiber.StatusNoContent)
 
 }

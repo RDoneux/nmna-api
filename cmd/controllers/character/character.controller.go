@@ -8,6 +8,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/jmoiron/sqlx"
 	"github.com/rdoneux/nmna-api/cmd/models"
+	"github.com/rdoneux/nmna-api/cmd/services"
 )
 
 type CharacterController struct {
@@ -17,7 +18,7 @@ type CharacterController struct {
 func (characterController *CharacterController) RegisterRoutes(app *fiber.App) {
 
 	app.Get("/protected/character/:id", characterController.getCharacterById)
-	app.Get("/protected/characters/user/:id", characterController.getCharactersByUserId)
+	app.Get("/protected/characters/user", characterController.getCharactersByUserId)
 	app.Post("/protected/characters", characterController.createCharacter)
 	app.Put("/protected/characters/:characterId/skill/:skillId", characterController.addCharacterSkill)
 	app.Put("/protected/characters/:characterId/inability/:inabilityId", characterController.addCharacterInability)
@@ -151,8 +152,10 @@ func (characterController *CharacterController) getCharacterById(ctx *fiber.Ctx)
 
 func (characterController *CharacterController) getCharactersByUserId(ctx *fiber.Ctx) error {
 
-	// get user id from params
-	userId := ctx.Params("id")
+	userId, err := services.GetUserIdFromClaims(ctx)
+	if err != nil {
+		return err
+	}
 
 	// query all characters associated with the user
 	query, args, err := squirrel.
@@ -166,6 +169,9 @@ func (characterController *CharacterController) getCharactersByUserId(ctx *fiber
 	}
 
 	rows, err := characterController.DB.Query(query, args...)
+	if err != nil {
+		return err
+	}
 	var characters []any = make([]any, 0)
 	for rows.Next() {
 		var character models.Character

@@ -2,12 +2,14 @@ package services
 
 import (
 	"crypto/sha256"
+	"errors"
 	"os"
 	"strconv"
 	"time"
 
 	"github.com/Masterminds/squirrel"
-	"github.com/golang-jwt/jwt/v5"
+	"github.com/gofiber/fiber/v2"
+	"github.com/golang-jwt/jwt/v4"
 	"github.com/jmoiron/sqlx"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -26,7 +28,7 @@ const (
 	TOKEN_TYPE_REFRESH = "refresh"
 )
 
-func GenerateJWT(username string) (accessToken, refreshToken string, err error) {
+func GenerateJWT(userId string) (accessToken, refreshToken string, err error) {
 	var jwtSecret = []byte(os.Getenv("JWT_SECRET"))
 
 	accessTokenExpMinutes, err := strconv.Atoi(os.Getenv("ACCESS_TOKEN_EXP_MINUTES"))
@@ -39,9 +41,9 @@ func GenerateJWT(username string) (accessToken, refreshToken string, err error) 
 	}
 
 	accessClaims := jwt.MapClaims{
-		"username": username,
-		"exp":      time.Now().Add(time.Duration(accessTokenExpMinutes) * time.Minute).Unix(),
-		"type":     TOKEN_TYPE_ACCESS,
+		"userId": userId,
+		"exp":    time.Now().Add(time.Duration(accessTokenExpMinutes) * time.Minute).Unix(),
+		"type":   TOKEN_TYPE_ACCESS,
 	}
 	access := jwt.NewWithClaims(jwt.SigningMethodHS256, accessClaims)
 	accessToken, accessErr := access.SignedString(jwtSecret)
@@ -50,9 +52,9 @@ func GenerateJWT(username string) (accessToken, refreshToken string, err error) 
 	}
 
 	refreshClaims := jwt.MapClaims{
-		"username": username,
-		"exp":      time.Now().Add(time.Duration(refreshTokenExpHours) * time.Hour).Unix(),
-		"type":     TOKEN_TYPE_REFRESH,
+		"userId": userId,
+		"exp":    time.Now().Add(time.Duration(refreshTokenExpHours) * time.Hour).Unix(),
+		"type":   TOKEN_TYPE_REFRESH,
 	}
 	refresh := jwt.NewWithClaims(jwt.SigningMethodHS256, refreshClaims)
 	refreshToken, refreshErr := refresh.SignedString(jwtSecret)
@@ -85,4 +87,57 @@ func UpdateRefreshTokenHashForUser(refreshToken, username string, db *sqlx.DB) e
 	_, err = db.Exec(query, args...)
 
 	return err
+}
+
+func SetHTTPOnlyCookies(ctx *fiber.Ctx, accessToken, refreshToken string) {
+	accessTokenExpMinutes, err := strconv.Atoi(os.Getenv("ACCESS_TOKEN_EXP_MINUTES"))
+	if err != nil {
+		accessTokenExpMinutes = 15 // fallback default
+	}
+	refreshTokenExpHours, err := strconv.Atoi(os.Getenv("REFRESH_TOKEN_EXP_HOURS"))
+	if err != nil {
+		refreshTokenExpHours = 24 // fallback default
+	}
+
+	ctx.Cookie(&fiber.Cookie{
+		Name:     "access_token",
+		Value:    accessToken,
+		HTTPOnly: true,
+		Secure:   true,
+		SameSite: "Strict",
+		Path:     "/",
+		Expires:  time.Now().Add(time.Minute * time.Duration(accessTokenExpMinutes)),
+	})
+
+	ctx.Cookie(&fiber.Cookie{
+		Name:     "refresh_token",
+		Value:    refreshToken,
+		HTTPOnly: true,
+		Secure:   true,
+		SameSite: "Strict",
+		Path:     "/",
+		Expires:  time.Now().Add(time.Hour * time.Duration(refreshTokenExpHours)),
+	})
+}
+
+func GetUserIdFromClaims(ctx *fiber.Ctx) (string, error) {
+	user := ctx.Locals("user")
+
+	token, ok := user.(*jwt.Token)
+	if !ok {
+		return "", errors.New("Invalid JWT token")
+	}
+	claims, ok := token.Claims.(jwt.MapClaims)
+	if !ok || claims == nil {
+		return "", errors.New("Invalid JWT claims")
+	}
+	userIdRaw, ok := claims["userId"]
+	if !ok {
+		return "", errors.New("userId not found in token")
+	}
+	userId, ok := userIdRaw.(string)
+	if !ok {
+		return "", errors.New("userId in token is not a string")
+	}
+	return userId, nil
 }

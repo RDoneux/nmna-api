@@ -4,11 +4,11 @@ import (
 	"os"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/jwt/v3"
 	"github.com/jmoiron/sqlx"
 	"github.com/joho/godotenv"
 
-	"github.com/rdoneux/nmna-api/cmd/services"
 	"github.com/rdoneux/nmna-api/cmd/controllers/authorisation"
 	"github.com/rdoneux/nmna-api/cmd/controllers/character"
 	"github.com/rdoneux/nmna-api/cmd/controllers/inabilities"
@@ -16,6 +16,7 @@ import (
 	"github.com/rdoneux/nmna-api/cmd/controllers/skills"
 	"github.com/rdoneux/nmna-api/cmd/controllers/user"
 	"github.com/rdoneux/nmna-api/cmd/controllers/utils"
+	"github.com/rdoneux/nmna-api/cmd/services"
 )
 
 func main() {
@@ -36,12 +37,16 @@ func main() {
 	}
 
 	app := fiber.New()
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "http://localhost:5173",
+		AllowCredentials: true,
+	}))
 
 	var jwtSecret = []byte(os.Getenv("JWT_SECRET"))
 	app.Use("/protected", jwtware.New(jwtware.Config{
 		SigningKey:  jwtSecret,
 		ContextKey:  "user",
-		TokenLookup: "header:Authorization",
+		TokenLookup: "cookie:access_token",
 		AuthScheme:  "Bearer",
 	}))
 
