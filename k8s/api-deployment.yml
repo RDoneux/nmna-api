@@ -88,7 +88,7 @@ metadata:
     kubernetes.io/ingress.class: "traefik"
 spec:
   rules:
-    - host: 192.168.0.127   # replace with your domain or use your node IP for testing
+    - host: nmna.dev   # replace with your domain or use your node IP for testing
       http:
         paths:
           - path: /
