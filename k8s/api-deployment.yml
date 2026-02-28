@@ -12,7 +12,6 @@ spec:
       labels:
         app: numenera-api
     spec:
-      hostNetwork: true
       containers:
         - name: api
           image: rdoneux/numenera:latest
@@ -99,4 +98,4 @@ spec:
               service:
                 name: nmna-api
                 port:
-                  number: 80
+                  number: 3000
