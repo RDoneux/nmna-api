@@ -75,10 +75,11 @@ metadata:
 spec:
   selector:
     app: numenera-api
+  type: NodePort
   ports:
-    - port: 80           # the port the service exposes internally
-      targetPort: 3000   # the containerPort in your Deployment
-  type: ClusterIP        # keep ClusterIP; NodePort not needed with Ingress
+    - port: 3000                 # internal service port
+      targetPort: 3000           # container port
+      nodePort: 30080            # port you hit externally
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
