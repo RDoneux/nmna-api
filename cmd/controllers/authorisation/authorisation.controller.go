@@ -4,10 +4,10 @@ import (
 	"crypto/sha256"
 	"os"
 
-	"github.com/jmoiron/sqlx"
 	"github.com/Masterminds/squirrel"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/jmoiron/sqlx"
 	"golang.org/x/crypto/bcrypt"
 
 	"github.com/rdoneux/nmna-api/cmd/services"
@@ -21,6 +21,7 @@ func (securityController *AuthorisationController) RegisterRoutes(app *fiber.App
 
 	app.Get("/refresh", securityController.refreshToken)
 	app.Get("/login", securityController.signIn)
+	app.Get("/protected/me", securityController.me)
 
 }
 
@@ -28,14 +29,7 @@ func (securityController *AuthorisationController) refreshToken(ctx *fiber.Ctx) 
 
 	var jwtSecret = []byte(os.Getenv("JWT_SECRET"))
 
-	// get refresh token claims
-	authHeaderPrefix := "Bearer "
-	authHeader := ctx.Get("Authorization")
-	if authHeader == "" || len(authHeader) < 8 || authHeader[:len(authHeaderPrefix)] != authHeaderPrefix {
-		return fiber.ErrForbidden
-	}
-
-	tokenString := authHeader[len(authHeaderPrefix):]
+	tokenString := ctx.Cookies("refresh_token")
 	token, jwtErr := jwt.Parse(tokenString, func(token *jwt.Token) (any, error) {
 		return jwtSecret, nil
 	})
@@ -48,7 +42,7 @@ func (securityController *AuthorisationController) refreshToken(ctx *fiber.Ctx) 
 		return fiber.ErrForbidden
 	}
 
-	username := claims["username"].(string)
+	userId := claims["userId"].(string)
 	tokenType := claims["type"].(string)
 
 	if tokenType != "refresh" {
@@ -58,7 +52,7 @@ func (securityController *AuthorisationController) refreshToken(ctx *fiber.Ctx) 
 	// get the user & valid refresh token from the database
 	query, args, err := squirrel.
 		Select("id", "username", "refresh_token_hash").
-		From("users").Where("username = ?", username).
+		From("users").Where("id = ?", userId).
 		ToSql()
 
 	var dbId string
@@ -85,10 +79,8 @@ func (securityController *AuthorisationController) refreshToken(ctx *fiber.Ctx) 
 
 	services.SetHTTPOnlyCookies(ctx, accessToken, refreshToken)
 
-	// return access tokens to the user
-	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
-		"userId": dbId,
-	})
+	return ctx.SendStatus(fiber.StatusNoContent)
+
 }
 
 func (securityController *AuthorisationController) signIn(ctx *fiber.Ctx) error {
@@ -114,7 +106,7 @@ func (securityController *AuthorisationController) signIn(ctx *fiber.Ctx) error 
 	var dbPasswordHash string
 	getUserError := securityController.DB.QueryRow(query, args...).Scan(&dbId, &dbUsername, &dbPasswordHash)
 	if getUserError != nil {
-		return getUserError
+		return fiber.ErrUnauthorized
 	}
 	if dbUsername == "" || dbPasswordHash == "" {
 		return fiber.ErrForbidden
@@ -138,6 +130,29 @@ func (securityController *AuthorisationController) signIn(ctx *fiber.Ctx) error 
 	services.SetHTTPOnlyCookies(ctx, accessToken, refreshToken)
 
 	// return tokens to user
-	return ctx.SendStatus(fiber.StatusNoContent)
+	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
+		"username": &dbUsername,
+	})
+
+}
+
+func (securityController *AuthorisationController) me(ctx *fiber.Ctx) error {
+
+	var jwtSecret = []byte(os.Getenv("JWT_SECRET"))
+
+	tokenString := ctx.Cookies("access_token")
+	token, jwtErr := jwt.Parse(tokenString, func(token *jwt.Token) (any, error) {
+		return jwtSecret, nil
+	})
+	if jwtErr != nil {
+		return jwtErr
+	}
+
+	user, err := GetUserFromToken(token, securityController.DB)
+	if err != nil {
+		return err
+	}
+
+	return ctx.Status(fiber.StatusOK).JSON(user)
 
 }

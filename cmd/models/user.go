@@ -13,6 +13,11 @@ type PublicUser struct {
 	Username    string `json:"username"`
 }
 
+type FullUser struct {
+	User
+	RefreshTokenHash string `json:"refreshTokenHash" db:"refresh_token_hash"`
+}
+
 func (user *User) ToPublic() PublicUser {
 	return PublicUser{
 		DisplayName: user.DisplayName,
