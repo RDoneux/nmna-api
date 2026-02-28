@@ -67,5 +67,34 @@ spec:
                 secretKeyRef:
                   name: "jwt"
                   key: "ACCESS_TOKEN_EXP_MINUTES"
-            
-            
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nmna-api
+spec:
+  selector:
+    app: numenera-api
+  ports:
+    - port: 80           # the port the service exposes internally
+      targetPort: 3000   # the containerPort in your Deployment
+  type: ClusterIP        # keep ClusterIP; NodePort not needed with Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nmna-api-ingress
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+spec:
+  rules:
+    - host: 192.168.0.127   # replace with your domain or use your node IP for testing
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nmna-api
+                port:
+                  number: 80
