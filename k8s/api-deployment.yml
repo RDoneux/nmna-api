@@ -79,7 +79,7 @@ spec:
   ports:
     - port: 3000                 # internal service port
       targetPort: 3000           # container port
-      nodePort: 30080            # port you hit externally
+      nodePort: 30100            # port you hit externally
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
