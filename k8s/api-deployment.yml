@@ -12,7 +12,6 @@ spec:
       labels:
         app: numenera-api
     spec:
-      hostNetwork: true
       containers:
         - name: api
           image: rdoneux/numenera:latest
