@@ -1,7 +1,11 @@
 package character
 
 import (
+	"database/sql"
+	"errors"
+
 	"github.com/Masterminds/squirrel"
+	"github.com/gofiber/fiber/v2"
 	"github.com/jmoiron/sqlx"
 	"github.com/rdoneux/nmna-api/cmd/models"
 )
@@ -139,7 +143,7 @@ func GetCharacterIdByCharacterWornItemId(db sqlx.DB, characterWornItemId string)
 	}
 	err = db.Get(&props, query, args...)
 	if err != nil {
-		return "", err
+		return "", fiber.ErrNotFound
 	}
 
 	return props.ID, nil
@@ -208,7 +212,7 @@ func GetCharacterItems(db sqlx.DB, characterId string) ([]models.Item, error) {
 func GetCharacterWornItems(db sqlx.DB, characterId string) ([]models.Item, error) {
 
 	query, args, err := squirrel.
-		Select("i.id",
+		Select("cwi.id",
 			"i.name",
 			"i.item_type",
 			"i.description",
@@ -237,6 +241,9 @@ func GetCharacterWornItems(db sqlx.DB, characterId string) ([]models.Item, error
 	var wornItems []models.Item = make([]models.Item, 0)
 	err = db.Select(&wornItems, query, args...)
 	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return wornItems, nil // no items found	
+		}
 		return nil, err
 	}
 
@@ -258,6 +265,7 @@ func GetCharacterItemById(db sqlx.DB, characterItemId string) (models.Item, erro
 		From("character_items ci").
 		Join("items i ON ci.item_id = i.id").
 		Join("item_equip_locations iel ON iel.item_id = i.id").
+		Where("ci.id = ?", characterItemId).
 		GroupBy("ci.id",
 			"i.name",
 			"i.description",
