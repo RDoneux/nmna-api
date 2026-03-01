@@ -5,9 +5,14 @@ meta {
 }
 
 get {
-  url: {{host}}/protected/characters/user
+  url: {{host}}/protected/characters/user?size=10&page=0
   body: none
   auth: inherit
+}
+
+params:query {
+  size: 10
+  page: 0
 }
 
 settings {

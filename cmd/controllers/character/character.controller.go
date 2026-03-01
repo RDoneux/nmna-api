@@ -2,6 +2,7 @@ package character
 
 import (
 	"slices"
+	"strconv"
 
 	"github.com/Masterminds/squirrel"
 	"github.com/gofiber/fiber/v2"
@@ -185,8 +186,39 @@ func (characterController *CharacterController) getCharactersByUserId(ctx *fiber
 		return err
 	}
 
-	// query all characters associated with the user
+	sizeStr := ctx.Query("size", "10")
+	pageStr := ctx.Query("page", "0")
+
+	size, err := strconv.Atoi(sizeStr)
+	if err != nil {
+		return err
+	}
+
+	page, err := strconv.Atoi(pageStr)
+	if err != nil {
+		return err
+	}
+
+	// get character count
 	query, args, err := squirrel.
+		Select("COUNT(*)").
+		From("characters").
+		Where("user_id = ?", userId).
+		ToSql()
+	if err != nil {
+		return err
+	}
+
+	var total int
+	err = characterController.DB.Get(&total, query, args...)
+	if err != nil {
+		return err
+	}
+
+	numPages := (total + size - 1) / size
+
+	// query all characters associated with the user
+	query, args, err = squirrel.
 		Select("c.id", "c.name", "c.shins", "c.experience_points", "c.tier", "cd.name AS descriptor", "cf.name AS focus", "ct.name AS type").
 		From("users").
 		Join("characters c ON users.id = c.user_id").
@@ -194,6 +226,8 @@ func (characterController *CharacterController) getCharactersByUserId(ctx *fiber
 		Join("character_foci cf ON c.character_focus_id = cf.id").
 		Join("character_types ct ON c.character_type_id = ct.id").
 		Where("users.id = ?", userId).
+		Offset(uint64(page * size)).
+		Limit(uint64(size)).
 		ToSql()
 	if err != nil {
 		return err
@@ -213,7 +247,13 @@ func (characterController *CharacterController) getCharactersByUserId(ctx *fiber
 	}
 
 	// return characters to user
-	return ctx.Status(fiber.StatusOK).JSON(characters)
+	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
+		"characters": characters,
+		"total":      total,
+		"numPages":   numPages,
+		"page":       page,
+		"size":       size,
+	})
 
 }
 
