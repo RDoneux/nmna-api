@@ -13,7 +13,7 @@ VALUES (
     );
 
 INSERT INTO
-    item_equip_locations (item_id, equip_location)
+    item_equip_locations (item_id, equip_location_id)
 VALUES (
         (
             SELECT id
@@ -21,5 +21,5 @@ VALUES (
             WHERE
                 name = 'Oddity Slot'
         ),
-        'NONE'
+        (SELECT id FROM equip_locations WHERE name = "NONE")
     );

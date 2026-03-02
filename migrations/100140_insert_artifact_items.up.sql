@@ -61,7 +61,7 @@ VALUES (
     );
 
 INSERT INTO
-    item_equip_locations (item_id, equip_location)
+    item_equip_locations (item_id, equip_location_id)
 VALUES (
         (
             SELECT id
@@ -69,7 +69,26 @@ VALUES (
             WHERE
                 name = 'Amber Casement'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Amber Casement'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -78,5 +97,10 @@ VALUES (
             WHERE
                 name = 'Living Armour Sheath'
         ),
-        'TORSO'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'TORSO'
+        )
     );

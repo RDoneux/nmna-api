@@ -256,7 +256,7 @@ VALUES (
     );
 
 INSERT INTO
-    item_equip_locations (item_id, equip_location)
+    item_equip_locations (item_id, equip_location_id)
 VALUES (
         (
             SELECT id
@@ -264,7 +264,26 @@ VALUES (
             WHERE
                 name = "Battleaxe"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Battleaxe"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -273,7 +292,26 @@ VALUES (
             WHERE
                 name = "Bow"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Bow"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -282,7 +320,26 @@ VALUES (
             WHERE
                 name = "Broadsword"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Broadsword"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -291,7 +348,26 @@ VALUES (
             WHERE
                 name = "Crank Crossbow"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Crank Crossbow"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -300,7 +376,26 @@ VALUES (
             WHERE
                 name = "Crossbow"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Crossbow"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -309,7 +404,26 @@ VALUES (
             WHERE
                 name = "Flail"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Flail"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -318,7 +432,26 @@ VALUES (
             WHERE
                 name = "Hammer"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Hammer"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -327,7 +460,26 @@ VALUES (
             WHERE
                 name = "Javelin"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Javelin"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -336,7 +488,26 @@ VALUES (
             WHERE
                 name = "Mace"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Mace"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -345,7 +516,26 @@ VALUES (
             WHERE
                 name = "Polearm"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Polearm"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -354,7 +544,26 @@ VALUES (
             WHERE
                 name = "Quarterstaff"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Quarterstaff"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -363,7 +572,26 @@ VALUES (
             WHERE
                 name = "Spear"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Spear"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -372,7 +600,26 @@ VALUES (
             WHERE
                 name = "Verred"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Verred"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -381,5 +628,24 @@ VALUES (
             WHERE
                 name = "Yulk"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Yulk"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "RIGHT_HAND"
+        )
     );

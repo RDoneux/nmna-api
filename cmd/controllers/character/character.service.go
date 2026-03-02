@@ -6,8 +6,10 @@ import (
 
 	"github.com/Masterminds/squirrel"
 	"github.com/gofiber/fiber/v2"
+	"github.com/google/uuid"
 	"github.com/jmoiron/sqlx"
 	"github.com/rdoneux/nmna-api/cmd/models"
+	"github.com/rdoneux/nmna-api/cmd/types"
 )
 
 func GetCharacterById(db sqlx.DB, characterId string) (models.Character, error) {
@@ -182,10 +184,11 @@ func GetCharacterItems(db sqlx.DB, characterId string) ([]models.Item, error) {
 			"i.weight",
 			"i.price",
 			"ci.quantity",
-			"JSON_ARRAYAGG(iel.equip_location) AS equip_locations").
+			"JSON_ARRAYAGG(el.name) AS equip_locations").
 		From("character_items ci").
 		Join("items i ON ci.item_id = i.id").
 		LeftJoin("item_equip_locations iel ON iel.item_id = i.id").
+		Join("equip_locations el on iel.equip_location_id = el.id").
 		Where("ci.character_id = ?", characterId).
 		GroupBy("ci.id",
 			"i.name",
@@ -218,13 +221,17 @@ func GetCharacterWornItems(db sqlx.DB, characterId string) ([]models.Item, error
 			"i.description",
 			"i.weight",
 			"i.price",
-			"cwi.location as equipped_at",
 			"ci.quantity",
-			"JSON_ARRAYAGG(iel.equip_location) AS equip_locations").
+			// this horror is to get distinct values using JSON_ARRAYAGG.
+			"(SELECT JSON_ARRAYAGG(name) FROM (SELECT DISTINCT el.name FROM character_worn_item_locations cwil2 JOIN equip_locations el ON el.id = cwil2.equip_location_id WHERE cwil2.worn_item_id = cwi.id) AS t) AS equipped_at",
+			"(SELECT JSON_ARRAYAGG(name) FROM (SELECT DISTINCT iel_equip.name FROM item_equip_locations iel2 JOIN equip_locations iel_equip ON iel2.equip_location_id = iel_equip.id WHERE iel2.item_id = i.id) AS t) AS equip_locations").
 		From("character_worn_items cwi").
 		Join("character_items ci ON cwi.character_items_id = ci.id").
 		Join("items i ON ci.item_id = i.id").
 		Join("item_equip_locations iel ON iel.item_id = i.id").
+		Join("equip_locations iel_equip ON iel.equip_location_id = iel_equip.id").
+		Join("character_worn_item_locations cwil ON cwil.worn_item_id = cwi.id").
+		Join("equip_locations el ON el.id = cwil.equip_location_id").
 		Where("cwi.character_id = ?", characterId).
 		GroupBy("ci.id",
 			"i.name",
@@ -242,7 +249,7 @@ func GetCharacterWornItems(db sqlx.DB, characterId string) ([]models.Item, error
 	err = db.Select(&wornItems, query, args...)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			return wornItems, nil // no items found	
+			return wornItems, nil // no items found
 		}
 		return nil, err
 	}
@@ -261,10 +268,11 @@ func GetCharacterItemById(db sqlx.DB, characterItemId string) (models.Item, erro
 			"i.weight",
 			"i.price",
 			"ci.quantity",
-			"JSON_ARRAYAGG(iel.equip_location) AS equip_locations").
+			"JSON_ARRAYAGG(el.name) AS equip_locations").
 		From("character_items ci").
 		Join("items i ON ci.item_id = i.id").
 		Join("item_equip_locations iel ON iel.item_id = i.id").
+		Join("equip_locations el on iel.equip_location_id = el.id").
 		Where("ci.id = ?", characterItemId).
 		GroupBy("ci.id",
 			"i.name",
@@ -446,12 +454,15 @@ func GetCharacterBackground(db sqlx.DB, characterBackgroundId string) (models.Ch
 	return characterBackground, nil
 }
 
-func InsertCharacterWornItem(db sqlx.DB, characterId, characterItemId string, location models.EquipLocation) error {
+func InsertCharacterWornItem(db sqlx.DB, characterId, characterItemId string, locations []types.EquipLocation) error {
 
+	id := uuid.New().String()
+
+	// insert worn item
 	query, args, err := squirrel.
 		Insert("character_worn_items").
-		Columns("character_id", "character_items_id", "location").
-		Values(characterId, characterItemId, location).
+		Columns("id, character_id", "character_items_id").
+		Values(id, characterId, characterItemId).
 		ToSql()
 	if err != nil {
 		return err
@@ -460,6 +471,43 @@ func InsertCharacterWornItem(db sqlx.DB, characterId, characterItemId string, lo
 	_, err = db.Exec(query, args...)
 	if err != nil {
 		return err
+	}
+
+	// get required equip locations
+	names := []string{}
+	for _, loc := range locations {
+		// map the names (HANDS -> LEFT_HAND & RIGHT_HAND)
+		for _, mapped := range MapLocation(loc) {
+			names = append(names, string(mapped))
+		}
+	}
+
+	query, args, err = squirrel.
+		Select("id").
+		From("equip_locations").
+		Where(squirrel.Eq{"name": names}).
+		ToSql()
+
+	var equipLocationIds []string
+	err = db.Select(&equipLocationIds, query, args...)
+	if err != nil {
+		return err
+	}
+
+	// insert worn item locations
+	for _, equipLocationId := range equipLocationIds {
+		query, args, err = squirrel.
+			Insert("character_worn_item_locations").
+			Columns("worn_item_id", "equip_location_id").
+			Values(id, equipLocationId).
+			ToSql()
+		if err != nil {
+			return err
+		}
+		_, err = db.Exec(query, args...)
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -678,4 +726,13 @@ func GetCharacterFocus(db sqlx.DB, characterId string) (models.CharacterFocus, e
 	}
 
 	return characterFocus, nil
+}
+
+func MapLocation(location types.EquipLocation) []types.EquipLocation {
+	switch location {
+	case "HANDS":
+		return []types.EquipLocation{"LEFT_HAND", "RIGHT_HAND"}
+	default:
+		return []types.EquipLocation{location}
+	}
 }

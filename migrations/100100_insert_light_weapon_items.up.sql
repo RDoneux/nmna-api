@@ -220,7 +220,7 @@ VALUES (
     );
 
 INSERT INTO
-    item_equip_locations (item_id, equip_location)
+    item_equip_locations (item_id, equip_location_id)
 VALUES (
         (
             SELECT id
@@ -228,7 +228,26 @@ VALUES (
             WHERE
                 name = "Blowgun"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Blowgun"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -237,7 +256,24 @@ VALUES (
             WHERE
                 name = "Buzzer"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Buzzer"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -246,7 +282,24 @@ VALUES (
             WHERE
                 name = "Club"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Club"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -255,7 +308,24 @@ VALUES (
             WHERE
                 name = "Dagger"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Dagger"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -264,7 +334,24 @@ VALUES (
             WHERE
                 name = "Dart Thrower"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Dart Thrower"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -273,7 +360,24 @@ VALUES (
             WHERE
                 name = "Forearm Blade"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Forearm Blade"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -282,7 +386,24 @@ VALUES (
             WHERE
                 name = "Knife"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Knife"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -291,7 +412,24 @@ VALUES (
             WHERE
                 name = "Punching Dagger"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Punching Dagger"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -300,7 +438,24 @@ VALUES (
             WHERE
                 name = "Rapier"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Rapier"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -309,7 +464,24 @@ VALUES (
             WHERE
                 name = "Razor ring"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Razor ring"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -318,7 +490,24 @@ VALUES (
             WHERE
                 name = "Sisk"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Sisk"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -327,5 +516,22 @@ VALUES (
             WHERE
                 name = "Whip"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Whip"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "RIGHT_HAND"
+        )
     );

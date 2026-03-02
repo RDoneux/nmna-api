@@ -39,22 +39,20 @@ CREATE TABLE character_worn_items (
     id VARCHAR(36) PRIMARY KEY DEFAULT(UUID()),
     character_id VARCHAR(36) NOT NULL,
     character_items_id VARCHAR(36) NOT NULL UNIQUE,
-    location ENUM(
-        'HEAD',
-        'EYES',
-        'EARS',
-        'NECK',
-        'TORSO',
-        'LEGS',
-        'HANDS',
-        'FINGERS',
-        'FOREARMS',
-        'FEET',
-        'NONE'
-    ),
-
     FOREIGN KEY (character_items_id) REFERENCES character_items (id) ON DELETE CASCADE,
     FOREIGN KEY (character_id) REFERENCES characters (id) ON DELETE CASCADE
+);
+
+CREATE TABLE character_worn_item_locations (
+    id VARCHAR(36) PRIMARY KEY DEFAULT(UUID()),
+    worn_item_id VARCHAR(36) NOT NULL,
+    equip_location_id VARCHAR(36) NOT NULL,
+    FOREIGN KEY (worn_item_id) REFERENCES character_worn_items (id) ON DELETE CASCADE,
+    FOREIGN KEY (equip_location_id) REFERENCES equip_locations (id) ON DELETE CASCADE,
+    UNIQUE (
+        worn_item_id,
+        equip_location_id
+    )
 );
 
 CREATE TABLE character_skills (

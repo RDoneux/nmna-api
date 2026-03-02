@@ -106,7 +106,7 @@ VALUES (
     );
 
 INSERT INTO
-    item_equip_locations (item_id, equip_location)
+    item_equip_locations (item_id, equip_location_id)
 VALUES (
         (
             SELECT id
@@ -114,7 +114,26 @@ VALUES (
             WHERE
                 name = "Greataxe"
         ),
-        "HANDS"
+        (
+            SELECT id
+            from equip_locations
+            where
+                name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Greataxe"
+        ),
+        (
+            SELECT id
+            from equip_locations
+            where
+                name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -123,7 +142,24 @@ VALUES (
             WHERE
                 name = "Greatsword"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Greatsword"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -132,7 +168,24 @@ VALUES (
             WHERE
                 name = "Heavy Crossbow"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Heavy Crossbow"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -141,7 +194,24 @@ VALUES (
             WHERE
                 name = "Maul"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Maul"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "RIGHT_HAND"
+        )
     ),
     (
         (
@@ -150,5 +220,22 @@ VALUES (
             WHERE
                 name = "Sword staff"
         ),
-        "HANDS"
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "LEFT_HAND"
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = "Sword staff"
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE name = "RIGHT_HAND"
+        )
     );

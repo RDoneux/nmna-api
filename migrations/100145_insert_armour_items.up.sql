@@ -180,59 +180,391 @@ VALUES (
         'HEAVY'
     );
 
-INSERT INTO pool_modifiers (
-    pool_type,
-    modifier_value,
-    edge_value,
-    foreign_key
-) VALUES
+INSERT INTO
+    pool_modifiers (
+        pool_type,
+        modifier_value,
+        edge_value,
+        foreign_key
+    )
+VALUES
     -- Leather jerkin
-    ('MIGHT', -1, 0, (SELECT id FROM items WHERE name = 'Leather jerkin')),
-    ('SPEED', -2, 0, (SELECT id FROM items WHERE name = 'Leather jerkin')),
-    ('ARMOUR', 1, 0, (SELECT id FROM items WHERE name = 'Leather jerkin')),
+    (
+        'MIGHT',
+        -1,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Leather jerkin'
+        )
+    ),
+    (
+        'SPEED',
+        -2,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Leather jerkin'
+        )
+    ),
+    (
+        'ARMOUR',
+        1,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Leather jerkin'
+        )
+    ),
     -- Hides and furs
-    ('MIGHT', -1, 0, (SELECT id FROM items WHERE name = 'Hides and furs')),
-    ('SPEED', -2, 0, (SELECT id FROM items WHERE name = 'Hides and furs')),
-    ('ARMOUR', 1, 0, (SELECT id FROM items WHERE name = 'Hides and furs')),
+    (
+        'MIGHT',
+        -1,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Hides and furs'
+        )
+    ),
+    (
+        'SPEED',
+        -2,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Hides and furs'
+        )
+    ),
+    (
+        'ARMOUR',
+        1,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Hides and furs'
+        )
+    ),
     -- Armouring cloth
-    ('MIGHT', -1, 0, (SELECT id FROM items WHERE name = 'Armouring cloth')),
-    ('SPEED', -2, 0, (SELECT id FROM items WHERE name = 'Armouring cloth')),
-    ('ARMOUR', 2, 0, (SELECT id FROM items WHERE name = 'Armouring cloth')),
+    (
+        'MIGHT',
+        -1,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Armouring cloth'
+        )
+    ),
+    (
+        'SPEED',
+        -2,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Armouring cloth'
+        )
+    ),
+    (
+        'ARMOUR',
+        2,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Armouring cloth'
+        )
+    ),
     -- Micromesh
-    ('MIGHT', -1, 0, (SELECT id FROM items WHERE name = 'Micromesh')),
-    ('SPEED', -2, 0, (SELECT id FROM items WHERE name = 'Micromesh')),
-    ('ARMOUR', 2, 0, (SELECT id FROM items WHERE name = 'Micromesh')),
+    (
+        'MIGHT',
+        -1,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Micromesh'
+        )
+    ),
+    (
+        'SPEED',
+        -2,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Micromesh'
+        )
+    ),
+    (
+        'ARMOUR',
+        2,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Micromesh'
+        )
+    ),
     -- Beastskin
-    ('MIGHT', -2, 0, (SELECT id FROM items WHERE name = 'Beastskin')),
-    ('SPEED', -3, 0, (SELECT id FROM items WHERE name = 'Beastskin')),
-    ('ARMOUR', 2, 0, (SELECT id FROM items WHERE name = 'Beastskin')),
+    (
+        'MIGHT',
+        -2,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Beastskin'
+        )
+    ),
+    (
+        'SPEED',
+        -3,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Beastskin'
+        )
+    ),
+    (
+        'ARMOUR',
+        2,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Beastskin'
+        )
+    ),
     -- Brigandine
-    ('MIGHT', -2, 0, (SELECT id FROM items WHERE name = 'Brigandine')),
-    ('SPEED', -3, 0, (SELECT id FROM items WHERE name = 'Brigandine')),
-    ('ARMOUR', 2, 0, (SELECT id FROM items WHERE name = 'Brigandine')),
+    (
+        'MIGHT',
+        -2,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Brigandine'
+        )
+    ),
+    (
+        'SPEED',
+        -3,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Brigandine'
+        )
+    ),
+    (
+        'ARMOUR',
+        2,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Brigandine'
+        )
+    ),
     -- Chainmail hauberk
-    ('MIGHT', -2, 0, (SELECT id FROM items WHERE name = 'Chainmail hauberk')),
-    ('SPEED', -3, 0, (SELECT id FROM items WHERE name = 'Chainmail hauberk')),
-    ('ARMOUR', 2, 0, (SELECT id FROM items WHERE name = 'Chainmail hauberk')),
+    (
+        'MIGHT',
+        -2,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Chainmail hauberk'
+        )
+    ),
+    (
+        'SPEED',
+        -3,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Chainmail hauberk'
+        )
+    ),
+    (
+        'ARMOUR',
+        2,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Chainmail hauberk'
+        )
+    ),
     -- Metalweave vest
-    ('MIGHT', -2, 0, (SELECT id FROM items WHERE name = 'Metalweave vest')),
-    ('SPEED', -3, 0, (SELECT id FROM items WHERE name = 'Metalweave vest')),
-    ('ARMOUR', 3, 0, (SELECT id FROM items WHERE name = 'Metalweave vest')),
+    (
+        'MIGHT',
+        -2,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Metalweave vest'
+        )
+    ),
+    (
+        'SPEED',
+        -3,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Metalweave vest'
+        )
+    ),
+    (
+        'ARMOUR',
+        3,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Metalweave vest'
+        )
+    ),
     -- Synth breastplate
-    ('MIGHT', -2, 0, (SELECT id FROM items WHERE name = 'Synth breastplate')),
-    ('SPEED', -3, 0, (SELECT id FROM items WHERE name = 'Synth breastplate')),
-    ('ARMOUR', 3, 0, (SELECT id FROM items WHERE name = 'Synth breastplate')),
+    (
+        'MIGHT',
+        -2,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Synth breastplate'
+        )
+    ),
+    (
+        'SPEED',
+        -3,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Synth breastplate'
+        )
+    ),
+    (
+        'ARMOUR',
+        3,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Synth breastplate'
+        )
+    ),
     -- Plate armour
-    ('MIGHT', -3, 0, (SELECT id FROM items WHERE name = 'Plate armour')),
-    ('SPEED', -5, 0, (SELECT id FROM items WHERE name = 'Plate armour')),
-    ('ARMOUR', 3, 0, (SELECT id FROM items WHERE name = 'Plate armour')),
+    (
+        'MIGHT',
+        -3,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Plate armour'
+        )
+    ),
+    (
+        'SPEED',
+        -5,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Plate armour'
+        )
+    ),
+    (
+        'ARMOUR',
+        3,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Plate armour'
+        )
+    ),
     -- Scale armour
-    ('MIGHT', -3, 0, (SELECT id FROM items WHERE name = 'Scale armour')),
-    ('SPEED', -5, 0, (SELECT id FROM items WHERE name = 'Scale armour')),
-    ('ARMOUR', 3, 0, (SELECT id FROM items WHERE name = 'Scale armour'));
+    (
+        'MIGHT',
+        -3,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Scale armour'
+        )
+    ),
+    (
+        'SPEED',
+        -5,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Scale armour'
+        )
+    ),
+    (
+        'ARMOUR',
+        3,
+        0,
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Scale armour'
+        )
+    );
 
 INSERT INTO
-    item_equip_locations (item_id, equip_location)
+    item_equip_locations (item_id, equip_location_id)
 VALUES (
         (
             SELECT id
@@ -240,7 +572,12 @@ VALUES (
             WHERE
                 name = 'Light Armour Slot'
         ),
-        'TORSO'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'TORSO'
+        )
     ),
     (
         (
@@ -249,7 +586,12 @@ VALUES (
             WHERE
                 name = 'Leather jerkin'
         ),
-        'TORSO'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'TORSO'
+        )
     ),
     (
         (
@@ -258,7 +600,12 @@ VALUES (
             WHERE
                 name = 'Hides and furs'
         ),
-        'TORSO'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'TORSO'
+        )
     ),
     (
         (
@@ -267,7 +614,12 @@ VALUES (
             WHERE
                 name = 'Armouring cloth'
         ),
-        'TORSO'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'TORSO'
+        )
     ),
     (
         (
@@ -276,7 +628,12 @@ VALUES (
             WHERE
                 name = 'Micromesh'
         ),
-        'TORSO'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'TORSO'
+        )
     ),
     (
         (
@@ -285,7 +642,12 @@ VALUES (
             WHERE
                 name = 'Beastskin'
         ),
-        'TORSO'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'TORSO'
+        )
     ),
     (
         (
@@ -294,7 +656,12 @@ VALUES (
             WHERE
                 name = 'Brigandine'
         ),
-        'TORSO'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'TORSO'
+        )
     ),
     (
         (
@@ -303,7 +670,12 @@ VALUES (
             WHERE
                 name = 'Chainmail hauberk'
         ),
-        'TORSO'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'TORSO'
+        )
     ),
     (
         (
@@ -312,7 +684,12 @@ VALUES (
             WHERE
                 name = 'Metalweave vest'
         ),
-        'TORSO'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'TORSO'
+        )
     ),
     (
         (
@@ -321,7 +698,12 @@ VALUES (
             WHERE
                 name = 'Synth breastplate'
         ),
-        'TORSO'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'TORSO'
+        )
     ),
     (
         (
@@ -330,7 +712,12 @@ VALUES (
             WHERE
                 name = 'Plate armour'
         ),
-        'TORSO'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'TORSO'
+        )
     ),
     (
         (
@@ -339,5 +726,10 @@ VALUES (
             WHERE
                 name = 'Scale armour'
         ),
-        'TORSO'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'TORSO'
+        )
     );

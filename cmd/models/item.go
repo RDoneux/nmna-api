@@ -1,11 +1,8 @@
 package models
 
-import (
-	"github.com/rdoneux/nmna-api/cmd/types"
-)
+import "github.com/rdoneux/nmna-api/cmd/types"
 
 type ItemType string
-type EquipLocation string
 type CapacityType string
 type WeightType string
 type CypherType string
@@ -22,20 +19,6 @@ const (
 	AMMUNITION  ItemType = "Ammunition"
 	ARMOUR      ItemType = "Armour"
 	ARMOUR_SLOT ItemType = "Armour Slot"
-)
-
-const (
-	HEAD     EquipLocation = "Head"
-	EYES     EquipLocation = "Eyes"
-	EARS     EquipLocation = "Ears"
-	NECK     EquipLocation = "Neck"
-	TORSO    EquipLocation = "Torso"
-	LEGS     EquipLocation = "Legs"
-	HANDS    EquipLocation = "Hands"
-	FINGERS  EquipLocation = "Fingers"
-	FOREARMS EquipLocation = "Forearms"
-	FEET     EquipLocation = "Feet"
-	NONE     EquipLocation = "None"
 )
 
 const (
@@ -79,9 +62,9 @@ type ListItem struct {
 
 type Item struct {
 	ListItem
-	EquippedAt     *EquipLocation    `json:"equippedAt" db:"equipped_at"`
-	Quantity       uint16            `json:"quantity" db:"quantity"`
-	EquipLocations types.StringArray `json:"equipLocations" db:"equip_locations"`
+	EquippedAt     *types.EquipLocationArray `json:"equippedAt" db:"equipped_at"`
+	Quantity       uint16                    `json:"quantity" db:"quantity"`
+	EquipLocations types.StringArray         `json:"equipLocations" db:"equip_locations"`
 }
 
 type CreateItemDTO struct {

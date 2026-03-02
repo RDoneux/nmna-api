@@ -734,7 +734,7 @@ VALUES (
     );
 
 INSERT INTO
-    item_equip_locations (item_id, equip_location)
+    item_equip_locations (item_id, equip_location_id)
 VALUES (
         (
             SELECT id
@@ -742,7 +742,12 @@ VALUES (
             WHERE
                 name = 'Cypher Slot'
         ),
-        'NONE'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'NONE'
+        )
     ),
     (
         (
@@ -751,7 +756,26 @@ VALUES (
             WHERE
                 name = 'Adhesion Clamps'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Adhesion Clamps'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -760,7 +784,12 @@ VALUES (
             WHERE
                 name = 'Antivenom'
         ),
-        'NONE'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'NONE'
+        )
     ),
     (
         (
@@ -769,7 +798,26 @@ VALUES (
             WHERE
                 name = 'Attractor'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Attractor'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -778,7 +826,26 @@ VALUES (
             WHERE
                 name = 'Banishing Nodule'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Banishing Nodule'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -787,7 +854,12 @@ VALUES (
             WHERE
                 name = 'Blinking Nodule'
         ),
-        'TORSO'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'TORSO'
+        )
     ),
     (
         (
@@ -796,7 +868,12 @@ VALUES (
             WHERE
                 name = 'CHEMICAL FACTORY'
         ),
-        'NONE'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'NONE'
+        )
     ),
     (
         (
@@ -805,7 +882,12 @@ VALUES (
             WHERE
                 name = 'Comprehension Graft'
         ),
-        'HEAD'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'HEAD'
+        )
     ),
     (
         (
@@ -814,7 +896,12 @@ VALUES (
             WHERE
                 name = 'Controlled Blinking Nodule'
         ),
-        'TORSO'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'TORSO'
+        )
     ),
     (
         (
@@ -823,7 +910,26 @@ VALUES (
             WHERE
                 name = 'Datasphere Siphon'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Datasphere Siphon'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -832,7 +938,26 @@ VALUES (
             WHERE
                 name = 'Density Nodule'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Density Nodule'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -841,7 +966,26 @@ VALUES (
             WHERE
                 name = 'Detonation'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Detonation'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -850,7 +994,26 @@ VALUES (
             WHERE
                 name = 'Detonation (Disiccating)'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Detonation (Disiccating)'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -859,7 +1022,26 @@ VALUES (
             WHERE
                 name = 'Detonation (Flash)'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Detonation (Flash)'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -868,7 +1050,26 @@ VALUES (
             WHERE
                 name = 'Detonation (Gravity)'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Detonation (Gravity)'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -877,7 +1078,26 @@ VALUES (
             WHERE
                 name = 'Detonation (Massive)'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Detonation (Massive)'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -886,7 +1106,26 @@ VALUES (
             WHERE
                 name = 'Detonation (Matter Disruption)'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Detonation (Matter Disruption)'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -895,7 +1134,26 @@ VALUES (
             WHERE
                 name = 'Detonation (Pressure)'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Detonation (Pressure)'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -904,7 +1162,26 @@ VALUES (
             WHERE
                 name = 'Detonation (Singularity)'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Detonation (Singularity)'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -913,7 +1190,26 @@ VALUES (
             WHERE
                 name = 'Detonation (Sonic)'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Detonation (Sonic)'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -922,7 +1218,26 @@ VALUES (
             WHERE
                 name = 'Detonation (Spawn)'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Detonation (Spawn)'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -931,7 +1246,26 @@ VALUES (
             WHERE
                 name = 'Detonation (Web)'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Detonation (Web)'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -940,7 +1274,26 @@ VALUES (
             WHERE
                 name = 'Disrupting Nodule'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Disrupting Nodule'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -949,7 +1302,12 @@ VALUES (
             WHERE
                 name = 'Eagleseye'
         ),
-        'NONE'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'NONE'
+        )
     ),
     (
         (
@@ -958,7 +1316,26 @@ VALUES (
             WHERE
                 name = 'Fireproofing Spray'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Fireproofing Spray'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -967,7 +1344,26 @@ VALUES (
             WHERE
                 name = 'Flame-Retardant Wall'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Flame-Retardant Wall'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -976,7 +1372,26 @@ VALUES (
             WHERE
                 name = 'Force Cube Projector'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Force Cube Projector'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -985,7 +1400,12 @@ VALUES (
             WHERE
                 name = 'Force Nodule'
         ),
-        'TORSO'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'TORSO'
+        )
     ),
     (
         (
@@ -994,7 +1414,26 @@ VALUES (
             WHERE
                 name = 'Force Screen Projector'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Force Screen Projector'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -1003,7 +1442,26 @@ VALUES (
             WHERE
                 name = 'Force Shield Projector'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Force Shield Projector'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -1012,7 +1470,26 @@ VALUES (
             WHERE
                 name = 'Friction-Reducing Gel'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Friction-Reducing Gel'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -1021,7 +1498,26 @@ VALUES (
             WHERE
                 name = 'Frigid Wall Projector'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Frigid Wall Projector'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -1030,7 +1526,26 @@ VALUES (
             WHERE
                 name = 'Gas Bomb'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Gas Bomb'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -1039,7 +1554,12 @@ VALUES (
             WHERE
                 name = 'Gravity Nullifier'
         ),
-        'FEET'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'FEET'
+        )
     ),
     (
         (
@@ -1048,7 +1568,26 @@ VALUES (
             WHERE
                 name = 'Gravity-Nullifying Spray'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Gravity-Nullifying Spray'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -1057,7 +1596,26 @@ VALUES (
             WHERE
                 name = 'Heat Nodule'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Heat Nodule'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -1066,7 +1624,26 @@ VALUES (
             WHERE
                 name = 'Hunter/Seeker'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Hunter/Seeker'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -1075,7 +1652,26 @@ VALUES (
             WHERE
                 name = 'Image Projector'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Image Projector'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -1084,7 +1680,26 @@ VALUES (
             WHERE
                 name = 'Inferno Wall Projector'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Inferno Wall Projector'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -1093,7 +1708,26 @@ VALUES (
             WHERE
                 name = 'Infiltrator'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Infiltrator'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -1102,7 +1736,26 @@ VALUES (
             WHERE
                 name = 'Instant Servant'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Instant Servant'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -1111,7 +1764,26 @@ VALUES (
             WHERE
                 name = 'Intant Shelter'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Intant Shelter'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -1120,7 +1792,12 @@ VALUES (
             WHERE
                 name = 'Intellect Enhancement'
         ),
-        'NONE'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'NONE'
+        )
     ),
     (
         (
@@ -1129,7 +1806,12 @@ VALUES (
             WHERE
                 name = 'Invisibility Nodule'
         ),
-        'TORSO'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'TORSO'
+        )
     ),
     (
         (
@@ -1138,7 +1820,12 @@ VALUES (
             WHERE
                 name = 'Knowledge Enhancement'
         ),
-        'NONE'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'NONE'
+        )
     ),
     (
         (
@@ -1147,7 +1834,26 @@ VALUES (
             WHERE
                 name = 'Lightning Wall Projector'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Lightning Wall Projector'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -1156,7 +1862,26 @@ VALUES (
             WHERE
                 name = 'Living Solvent'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Living Solvent'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -1165,7 +1890,12 @@ VALUES (
             WHERE
                 name = 'Machine Control Implant'
         ),
-        'NONE'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'NONE'
+        )
     ),
     (
         (
@@ -1174,5 +1904,24 @@ VALUES (
             WHERE
                 name = 'Magnetic Attack Drill'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Magnetic Attack Drill'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     );

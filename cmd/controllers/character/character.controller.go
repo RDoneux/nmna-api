@@ -10,6 +10,7 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/rdoneux/nmna-api/cmd/models"
 	"github.com/rdoneux/nmna-api/cmd/services"
+	"github.com/rdoneux/nmna-api/cmd/types"
 )
 
 type CharacterController struct {
@@ -450,34 +451,57 @@ func (characterController *CharacterController) addCharacterWornItem(ctx *fiber.
 	characterItemId := ctx.Params("characterItemId")
 	characterId := ctx.Params("characterId")
 	var params struct {
-		Location models.EquipLocation `json:"location"`
+		Locations []types.EquipLocation `json:"locations"`
 	}
 	err := ctx.BodyParser(&params)
 	if err != nil {
 		return err
 	}
 
-	// check that the desired equip location is included in the Item equip location list
+	// check that the desired equip locations are included in the Item equip location list
 	characterItem, err := GetCharacterItemById(*db, characterItemId)
 	if err != nil {
 		return err
 	}
 	possibleEquipLocations := characterItem.EquipLocations
-	found := slices.Contains(possibleEquipLocations, string(params.Location))
-	if !found {
-		return ctx.Status(fiber.StatusBadRequest).SendString("Invalid equip location for this item")
+
+	allFound := true
+	for _, loc := range params.Locations {
+
+		if !slices.Contains(possibleEquipLocations, string(loc)) {
+			allFound = false
+			break
+		}
+	}
+	if !allFound {
+		return ctx.Status(fiber.StatusBadRequest).JSON("Invalid equip location for this item")
 	}
 
-	// check that desired equip location does not already have an item in it
+	// check that desired equip locations do not already have an item in it
 	characterWornItems, err := GetCharacterWornItems(*db, characterId)
+	if err != nil {
+		return err
+	}
+
+	// build a set of all occupied locations
+	occupied := make(map[string]struct{})
 	for _, wornItem := range characterWornItems {
-		if *wornItem.EquippedAt == params.Location {
-			return ctx.Status(fiber.StatusBadRequest).SendString("Equip location already occupied")
+		if wornItem.EquippedAt != nil {
+			for _, equippedLoc := range *wornItem.EquippedAt {
+				occupied[string(equippedLoc)] = struct{}{}
+			}
+		}
+	}
+
+	// Check if any requested location is already occupied
+	for _, requestedLoc := range params.Locations {
+		if _, exists := occupied[string(requestedLoc)]; exists {
+			return ctx.Status(fiber.StatusBadRequest).JSON(string(requestedLoc) + " already occupied")
 		}
 	}
 
 	// insert character worn item
-	err = InsertCharacterWornItem(*db, characterId, characterItemId, params.Location)
+	err = InsertCharacterWornItem(*db, characterId, characterItemId, params.Locations)
 	if err != nil {
 		return err
 	}

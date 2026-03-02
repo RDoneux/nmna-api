@@ -431,7 +431,7 @@ VALUES (
     );
 
 INSERT INTO
-    item_equip_locations (item_id, equip_location)
+    item_equip_locations (item_id, equip_location_id)
 VALUES (
         (
             SELECT id
@@ -439,7 +439,26 @@ VALUES (
             WHERE
                 name = 'Light Weapon Slot'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Light Weapon Slot'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -448,7 +467,12 @@ VALUES (
             WHERE
                 name = 'Backpack'
         ),
-        'TORSO'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'TORSO'
+        )
     ),
     (
         (
@@ -457,7 +481,26 @@ VALUES (
             WHERE
                 name = 'Back of light tools'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Back of light tools'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -466,7 +509,26 @@ VALUES (
             WHERE
                 name = 'Back of heavy tools'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
+    ),
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Back of heavy tools'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -475,7 +537,27 @@ VALUES (
             WHERE
                 name = 'Bedroll'
         ),
-        'NONE'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'NONE'
+        )
+    ),
+    -- Book
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Book'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
     ),
     (
         (
@@ -484,7 +566,27 @@ VALUES (
             WHERE
                 name = 'Book'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
+    ),
+    -- Burlap sack
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Burlap sack'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
     ),
     (
         (
@@ -493,7 +595,27 @@ VALUES (
             WHERE
                 name = 'Burlap sack'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
+    ),
+    -- Compass
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Compass'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
     ),
     (
         (
@@ -502,7 +624,27 @@ VALUES (
             WHERE
                 name = 'Compass'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
+    ),
+    -- Crowbar
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Crowbar'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
     ),
     (
         (
@@ -511,7 +653,12 @@ VALUES (
             WHERE
                 name = 'Crowbar'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -520,7 +667,12 @@ VALUES (
             WHERE
                 name = 'Disguise kit'
         ),
-        'NONE'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'NONE'
+        )
     ),
     (
         (
@@ -529,7 +681,27 @@ VALUES (
             WHERE
                 name = 'Explorer''s pack'
         ),
-        'TORSO'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'TORSO'
+        )
+    ),
+    -- First aid kit
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'First aid kit'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
     ),
     (
         (
@@ -538,7 +710,27 @@ VALUES (
             WHERE
                 name = 'First aid kit'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
+    ),
+    -- Grappling hook
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Grappling hook'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
     ),
     (
         (
@@ -547,7 +739,27 @@ VALUES (
             WHERE
                 name = 'Grappling hook'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
+    ),
+    -- Lockpicks
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Lockpicks'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
     ),
     (
         (
@@ -556,7 +768,27 @@ VALUES (
             WHERE
                 name = 'Lockpicks'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
+    ),
+    -- Matchsticks
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Matchsticks'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
     ),
     (
         (
@@ -565,7 +797,27 @@ VALUES (
             WHERE
                 name = 'Matchsticks'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
+    ),
+    -- Musical Instrument
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Musical Instrument'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
     ),
     (
         (
@@ -574,7 +826,27 @@ VALUES (
             WHERE
                 name = 'Musical Instrument'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
+    ),
+    -- Pouch
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Pouch'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
     ),
     (
         (
@@ -583,7 +855,27 @@ VALUES (
             WHERE
                 name = 'Pouch'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
+    ),
+    -- Rope
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Rope (15 meters)'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
     ),
     (
         (
@@ -592,7 +884,27 @@ VALUES (
             WHERE
                 name = 'Rope (15 meters)'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
+    ),
+    -- Shield
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Shield'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
     ),
     (
         (
@@ -601,7 +913,12 @@ VALUES (
             WHERE
                 name = 'Shield'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -610,7 +927,27 @@ VALUES (
             WHERE
                 name = 'Tent'
         ),
-        'NONE'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'NONE'
+        )
+    ),
+    -- Torch
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Torch'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
     ),
     (
         (
@@ -619,7 +956,27 @@ VALUES (
             WHERE
                 name = 'Torch'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
+    ),
+    -- Ale
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Ale'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
     ),
     (
         (
@@ -628,7 +985,27 @@ VALUES (
             WHERE
                 name = 'Ale'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
+    ),
+    -- Wine
+    (
+        (
+            SELECT id
+            FROM items
+            WHERE
+                name = 'Wine'
+        ),
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'LEFT_HAND'
+        )
     ),
     (
         (
@@ -637,7 +1014,12 @@ VALUES (
             WHERE
                 name = 'Wine'
         ),
-        'HANDS'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'RIGHT_HAND'
+        )
     ),
     (
         (
@@ -646,7 +1028,12 @@ VALUES (
             WHERE
                 name = 'Boots'
         ),
-        'FEET'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'FEET'
+        )
     ),
     (
         (
@@ -655,7 +1042,12 @@ VALUES (
             WHERE
                 name = 'Cigarettes'
         ),
-        'NONE'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'NONE'
+        )
     ),
     (
         (
@@ -664,7 +1056,12 @@ VALUES (
             WHERE
                 name = 'Clothing'
         ),
-        'TORSO'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'TORSO'
+        )
     ),
     (
         (
@@ -673,7 +1070,12 @@ VALUES (
             WHERE
                 name = 'Meal'
         ),
-        'NONE'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'NONE'
+        )
     ),
     (
         (
@@ -682,5 +1084,10 @@ VALUES (
             WHERE
                 name = 'Rations (1 day)'
         ),
-        'NONE'
+        (
+            SELECT id
+            FROM equip_locations
+            WHERE
+                name = 'NONE'
+        )
     );
